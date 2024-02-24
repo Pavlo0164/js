@@ -73,3 +73,51 @@ h6 {
   font-weight: inherit;
   font-size: inherit;
 }
+
+/*=============================*/
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 33px;
+  font-weight: 500;
+  line-height: 130%;
+}
+
+.page {
+  padding: 40px;
+}
+.page__link-lessons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-column-gap: 40px;
+     -moz-column-gap: 40px;
+          column-gap: 40px;
+  row-gap: 40px;
+}
+.page__link-lessons a {
+  padding: 40px;
+  border-radius: 30px;
+  border: 2px solid #444;
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+.page__link-lessons a:active {
+  color: #d6caca;
+  background-color: #eddada;
+}
+@media (any-hover: hover) {
+  .page__link-lessons a:hover {
+    background-color: #756d6d;
+    color: #fff;
+  }
+}

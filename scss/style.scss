@@ -2,15 +2,41 @@
 /*=============================*/
 
 .wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 33px;
+  font-weight: 500;
+  line-height: 130%;
 }
 .page {
+  padding: 40px;
+  &__link-lessons {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 40px;
+    row-gap: 40px;
+    & a {
+      padding: 40px;
+      border-radius: 30px;
+      border: 2px solid #444;
+      transition: all 0.1s ease;
+      &:active {
+        color: #d6caca;
+        background-color: #eddada;
+      }
+      @media (any-hover: hover) {
+        &:hover {
+          background-color: #756d6d;
+          color: #fff;
+        }
+      }
+    }
+  }
 
-		&__link-lessons {
-		}
+  &__lesson-one {
+  }
 
-		&__lesson-one {
-		}
-
-		&__lesson-two {
-		}
+  &__lesson-two {
+  }
 }
