@@ -22,8 +22,7 @@ if (booleanVariable) {
       nameSecondChild = prompt("Enter the second child's name");
       if (!nameSecondChild) {
         booleanVariable = false;
-      }
-      if (!isNaN(parseInt(nameSecondChild))) {
+      } else if (!isNaN(parseInt(nameSecondChild))) {
         booleanVariableName = false;
       } else {
         numberOfCandiesInSecondChild = parseInt(
