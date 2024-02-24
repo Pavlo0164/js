@@ -43,7 +43,7 @@ if (!booleanVariableName) {
   alert("Sorry, Child`s name cannot consists of numbers ");
 }
 
-if (booleanVariable || booleanVariableName) {
+if (booleanVariable && booleanVariableName) {
   if (numberOfCandiesInFirstChild === numberOfCandiesInSecondChild) {
     alert(
       `Children have the same number of candies, these is ${nameFirstChild} and ${nameSecondChild}`
