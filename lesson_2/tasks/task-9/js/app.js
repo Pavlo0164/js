@@ -5,20 +5,24 @@ const personInKindergarten = 5;
 const personInSchool = 14;
 const personInStudent = 25;
 const personInWork = 60;
+let result;
+let resultFin;
 if (isNaN(humanAge)) {
-  alert("Your age is incorrect");
+  resultFin = "Your age is incorrect";
 } else if (humanAge < 0 || humanAge > 150) {
-  alert("You do not exist");
+  resultFin = "You do not exist";
 } else {
   if (humanAge <= personInKindergarten) {
-    alert("This person is in kindergarten ");
+    result = "This person is in kindergarten ";
   } else if (humanAge <= personInSchool) {
-    alert("This person is in school ");
+    result = "This person is in school ";
   } else if (humanAge <= personInStudent) {
-    alert("This person is a student  ");
+    result = "This person is a student  ";
   } else if (humanAge <= personInWork) {
-    alert("This person is a employee ");
+    result = "This person is a employee ";
   } else {
-    alert("This person is a pensioner ");
+    result = "This person is a pensioner ";
   }
+  resultFin = result;
 }
+alert(resultFin);

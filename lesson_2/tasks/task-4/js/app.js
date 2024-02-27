@@ -7,7 +7,7 @@ let randomNumberMonth = Math.floor(
   Math.random() * (maxMonth - minMonth + 1) + minMonth
 );
 let randomNumberDay = Math.floor(
-  Math.random() * (maxMonth - minMonth + 1) + minMonth
+  Math.random() * (maxDay - minDay + 1) + minDay
 );
 let sumRandomNumber = randomNumberMonth + randomNumberDay;
 document.write(`Сума випадкових чисел : ${sumRandomNumber}`);

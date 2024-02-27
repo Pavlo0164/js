@@ -3,18 +3,19 @@
 const categoryDriver = prompt(
   "Please, enter your category with a capital letter"
 );
-
+let result;
 switch (categoryDriver) {
   case "A":
-    alert("You can drive a motorcycle");
+    result = "You can drive a motorcycle";
     break;
   case "B":
-    alert("You can drive cars weighing up to 3500kg");
+    result = "You can drive cars weighing up to 3500kg";
     break;
   case "C":
-    alert("You can drive cars weighing more than 3500kg");
+    result = "You can drive cars weighing more than 3500kg";
     break;
   default:
-    alert("You entered an incorrected category drive");
+    result = "You entered an incorrected category drive";
     break;
 }
+alert(result);

@@ -35,21 +35,22 @@ if (booleanVariable) {
     }
   }
 }
+let resultTwo 
 if (!booleanVariable) {
-  alert("Sorry,You are entering incorrect data");
+  resultTwo = "Sorry,You are entering incorrect data"
+}else if (!booleanVariableName) {
+  resultTwo = "Sorry, Child`s name cannot consists of numbers "
 }
-if (!booleanVariableName) {
-  alert("Sorry, Child`s name cannot consists of numbers ");
+let result 
+if(resultTwo){
+  alert(resultTwo);
+}else{
+   if (numberOfCandiesInFirstChild === numberOfCandiesInSecondChild) {
+     result = `Children have the same number of candies, these is ${nameFirstChild} and ${nameSecondChild}`;
+   } else if (numberOfCandiesInFirstChild > numberOfCandiesInSecondChild) {
+     result = `The first child has more candy, her name is ${nameFirstChild}`;
+   } else {
+     result = `The second child has more candy her name is ${nameSecondChild}`;
+   }
 }
-
-if (booleanVariable && booleanVariableName) {
-  if (numberOfCandiesInFirstChild === numberOfCandiesInSecondChild) {
-    alert(
-      `Children have the same number of candies, these is ${nameFirstChild} and ${nameSecondChild}`
-    );
-  } else if (numberOfCandiesInFirstChild > numberOfCandiesInSecondChild) {
-    alert(`The first child has more candy, her name is ${nameFirstChild}`);
-  } else {
-    alert(`The second child has more candy her name is ${nameSecondChild}`);
-  }
-}
+alert(result)

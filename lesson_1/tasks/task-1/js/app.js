@@ -4,8 +4,6 @@ let a = parseFloat(prompt("Number a ="));
 let b = parseFloat(prompt("Number b ="));
 let sumNumbers = numberOne + a + b;
 
-document.write(`Hello.Sum of numbers :   ${sumNumbers}`);
-
 //сума,добуток,частка двох чисел
 alert(
   `Сума чисел = ${a + b}\n 
