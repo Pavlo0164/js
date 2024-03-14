@@ -1,16 +1,12 @@
+alert(`
+Задача 7. Створити функцію, яка випадковим чином виводить на екран одне
+ із 4 зображень (шляхи до зображень передаються у функцію)
+`);
+let url = '../../../../img/image-'
+let urlEnd = '.jpeg'
+function showImage(url,urlEnd) {
+    let num = 1 + Math.floor(Math.random()*4)
+    document.write(`<img src=${url}${num}${urlEnd}>`)
+}
 
-alert(
-	`
-8. З клавіатури вводиться число. Знаходити суму цифр до тих пір. Поки сума не стане більшую 20
-  `
-);
-let num2 = 0 
-let num = 20
-do{
-  enterNum = prompt(`Введіть число`)
-  for (let i = 0; i < enterNum.length; i++) {
-   num2 += parseInt(enterNum[i]) 
-  }
-}while(num2 <= num)
-
-alert(`Сума цифр становить ${num2}`)
+showImage(url,urlEnd)

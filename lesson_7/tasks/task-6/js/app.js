@@ -1,38 +1,33 @@
 alert(`
-5. На екрані виводиться меню: 
-1. Сказати «Привіт». 
-2. Сказати «Зачекай». 
-3. Сказати «До побачення». 
-4. Вихід.
-Шляхом вибору пунктів меню виводити відповідні повідомлення, поки не буде вибрано пункт номер 4.
+Задача 5. Створити окремі функції, які переводять:
+Сантиметри у дюйми;
+Кілограми у фунти;
+Кілометри у милі.
+
 `);
+let sant = parseInt(prompt(`Введіть кількість сантиметрів`))
+let kilo = parseFloat(prompt(`Введіть кількість кілограмів`))
+let kilometr = parseFloat(prompt(`Введіть кількість кілометрів`))
+function santInDuim(sant) {
+    oneDuim = 2.54
+    let duim = sant / oneDuim
+    return duim
+}
 
-
-let num;
-do {
-	num = parseInt(
-		prompt(`
-  1. Сказати «Привіт». \n
-  2. Сказати «Зачекай». \n
-  3. Сказати «До побачення». \n 
-  4. Вихід.
-  Виберіть пункт меню
-  `)
-	);
-	let str;
-	switch (num) {
-		case 1:
-			str = "Привіт";
-			break;
-		case 2:
-			str = "Зачекай";
-			break;
-		case 3:
-			str = "До побачення";
-			break;
-		case 4:
-			str = "Бувай";
-			break;
-	}
-	alert(str);
-} while (num !== 4);
+function kiloInFunt(kilo) {
+    oneFunt = 2.2
+    let funt = kilo / oneFunt
+    return funt
+}
+function kilometrInMile(kilometr) {
+    oneMile = 1.61
+    let mile = kilometr / oneMile
+    return mile
+}
+document.write(`
+    <div>${sant} сантиметрів це: ${santInDuim(sant).toFixed(3)} дюйм(ів) </div>
+    <div>
+        ${kilo} кілограмів це: ${kiloInFunt(kilo).toFixed(3)} фунти(ів)
+    </div>
+    <div>${kilometr} кілометрів це: ${kilometrInMile(kilometr).toFixed(3)} миль</div>
+`);

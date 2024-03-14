@@ -1,24 +1,31 @@
 alert(`
-4.1. З клавіатури вводяться два числа N i M (N<M). Вивести а екран числа
-N---M
-N+1 --- M-1
-N+2 --- M-2
-N+3 --- M-3
-Виведення завершити коли число справа стане меншим за число зліва.
+    Задача 4. Створити функцію, яка для 3 заданих чисел знаходить одночасно декілька результатів: 
+    кількість парних, кількість додатних, кількість більших за 100.
+`);
+let num1 = parseInt(prompt(`Введіть число`))
+let num2 = parseInt(prompt(`Введіть число`));
+let num3 = parseInt(prompt(`Введіть число`));
+function showResult(num1, num2, num3) {
+	let count = 0;
+	if (num1 % 2 === 0) count += 1;
+	if (num2 % 2 === 0) count += 1;
+	if (num3 % 2 === 0) count += 1;
 
+	let plus = 0;
+	if (num1 > 0) plus += 1;
+	if (num2 > 0) plus += 1;
+	if (num3 > 0) plus += 1;
+
+	let bigNumber = 0;
+	if (num1 > 100) bigNumber += 1;
+	if (num2 > 100) bigNumber += 1;
+	if (num3 > 100) bigNumber += 1;
+    return [count,plus,bigNumber]
+}
+let result = showResult(num1, num2, num3);
+document.write(`
+    <div>Парних чисел ${result[0]}</div>
+    <div>Додатних чисел ${result[1]}</div>
+    <div>Більших за 100 чисел ${result[2]}</div>
 `);
 
-let N = parseInt(prompt('Введіть число N'))
-let M = parseInt(prompt("Введіть число M"));
-
-while (N <= M) {
-   document.write(`<p>${N} , ${M}</p>`);
-	N += 1;
-	M -= 1;
-}
-for (let i = 0; N < M; i++) {
-    document.write(`<p>${N} , ${M}</p>`);
-		N += 1;
-		M -= 1;
-  
-}
