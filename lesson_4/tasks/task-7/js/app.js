@@ -1,9 +1,27 @@
-//Задача 4. Вивести таблицю з 3 рядків і 7 стовпців
+alert(`
+7. Користувач загадує натуральне число від 1 до N.
+ Шляхом задавання мінімальної кількості запитань знайти вказане число 
+ (застосувати бінарний пошук, на кожному кроці якого інтервал пошуку зменшується 
+  на 2 шляхом порівняння з елементом, який знаходиться у центрі поточного інтервалу)
+  `);
+  let start = 1
+  let end = parseInt(prompt(`Введіть крайнє допустиме число`))
+  let result = false
+  do{
+    let center = Math.floor((end + start)/2)
 
-for (let i = 0; i < 3; i++) {
-  document.write(`<table style="border:1px solid #000;font-size:25px"> <tr>`);
-  for (let i = 1; i <= 7; i++) {
-    document.write(`<th style="border:1px solid #000;padding:10px;">${i}</th>`);
-  }
-  document.write(`</tr></table>`);
-}
+    let trueOreFalse = prompt(`
+    Якщо загадане число більше ніж  ${center}, введіть 1.
+    Якщо загадане число менше ніж ${center}, введіть 2.
+    Якщо загадане число ${center}, введіть 3.
+     `)
+
+    if(trueOreFalse === '1'){
+      start = center
+    }else if(trueOreFalse === '2'){
+      end = center
+    }else if(trueOreFalse === '3'){
+      result = true
+      document.write(`Загадане число ${center}`)
+    }
+  }while(!result)

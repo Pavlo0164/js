@@ -1,15 +1,13 @@
-// Задача 1. Вивести з використанням циклів маркований список з випадковими числами (1-100).
-//Кількість випадкових чисел вводиться користувачем. Приклад:
-
-const counNumber = parseInt(prompt("Введіть кількість чисел"));
-
-for (let i = 0; i < 1; i++) {
-  document.write(
-    `<ul style="font-size:22px;display:flex;flex-wrap:wrap;gap:40px;list-style:none">`
-  );
-  for (let i = 0; i < counNumber; i++) {
-    let num = 1 + Math.floor(Math.random() * 100);
-    document.write(`<li>${num}</li>`);
+alert(
+	"4. З клавіатури поступово вводяться числа. Знайти суму перших N парних чисел."
+);
+let sum = 0
+for (let i = 0; i < 2; ) {
+  let num = parseInt(prompt('Введіть число'))
+  if(num % 2 === 0){
+    sum += num
+    i++
   }
-  document.write(`</ul>`);
+  
 }
+document.write(`Сума перших двох парних чисел : ${sum}`)

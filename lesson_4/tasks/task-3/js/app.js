@@ -1,10 +1,11 @@
-//Задача 0. Вивести на екран 8 кнопок з написом “Hello”.
-for (let i = 0; i < 8; i++) {
-  document.write(`<button style= '
-  margin-right:20px;
-  padding:10px;
-  width:100px;
-  font-size:25px
-  '>Hello</button>`)
-  
-}
+alert(
+	"3. З клавіатури вводиться початкове знчення суми. Поки сума є меншою за 100 додавати до неї числа, які вводяться з клавіатури."
+);
+let sum = 0
+let number
+do{
+  number = parseInt(prompt("Введіть число"))
+  sum += number
+}while(sum <100)
+
+document.write(sum)

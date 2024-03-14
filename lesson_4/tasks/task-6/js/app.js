@@ -1,12 +1,38 @@
-//Задача 3. Вивести таблицю з одним рядком і  7 стовпцями.
+alert(`
+5. На екрані виводиться меню: 
+1. Сказати «Привіт». 
+2. Сказати «Зачекай». 
+3. Сказати «До побачення». 
+4. Вихід.
+Шляхом вибору пунктів меню виводити відповідні повідомлення, поки не буде вибрано пункт номер 4.
+`);
 
-for (let i = 0; i < 1; i++) {
-  document.write(`<table style="border:1px solid #000;font-size:25px"> <tr>`)
-  for (let i = 1; i <= 7; i++) {
-    document.write(
-      `<th style="border:1px solid #000;padding:10px;">${i}</th>`
-    );
-    
-  }
-  document.write(`</tr></table>`);
-}
+
+let num;
+do {
+	num = parseInt(
+		prompt(`
+  1. Сказати «Привіт». \n
+  2. Сказати «Зачекай». \n
+  3. Сказати «До побачення». \n 
+  4. Вихід.
+  Виберіть пункт меню
+  `)
+	);
+	let str;
+	switch (num) {
+		case 1:
+			str = "Привіт";
+			break;
+		case 2:
+			str = "Зачекай";
+			break;
+		case 3:
+			str = "До побачення";
+			break;
+		case 4:
+			str = "Бувай";
+			break;
+	}
+	alert(str);
+} while (num !== 4);

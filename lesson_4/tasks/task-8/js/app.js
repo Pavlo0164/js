@@ -1,12 +1,16 @@
-//Задача 5. Вивести таблицю
 
-
-let count = 1
-for (let i = 0; i < 3; i++) {
-  document.write(`<table style="border:1px solid #000;font-size:25px"> <tr>`);
-  for (let i = 1; i <= 3; i++) {
-    document.write(`<th style="border:1px solid #000;padding:10px;">${count}</th>`);
-    count++
+alert(
+	`
+8. З клавіатури вводиться число. Знаходити суму цифр до тих пір. Поки сума не стане більшую 20
+  `
+);
+let num2 = 0 
+let num = 20
+do{
+  enterNum = prompt(`Введіть число`)
+  for (let i = 0; i < enterNum.length; i++) {
+   num2 += parseInt(enterNum[i]) 
   }
-  document.write(`</tr></table>`);
-}
+}while(num2 <= num)
+
+alert(`Сума цифр становить ${num2}`)
