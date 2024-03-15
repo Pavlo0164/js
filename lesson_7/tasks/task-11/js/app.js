@@ -13,12 +13,11 @@ function showTemp() {
 	}
 	return sum/count;
 }
-
 document.write(
 	`Середнє значення для додатних показів температури становить ${showTemp(
 		32,
 		23,
-		23,
+		-23,
 		-14,
 		-23,
 		-34
