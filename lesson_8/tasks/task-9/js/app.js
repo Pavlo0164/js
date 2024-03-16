@@ -22,9 +22,9 @@ function createdArray(cells, ships) {
 	do {
 		bool = false;
 		let num = parseInt(prompt(`Зробіть постріл від 1 до ${cells}`));
-		if (arr[num] === 1) {
+		if (arr[num - 1] === 1) {
 			alert(`Ви попали`);
-			arr[num] = 0;
+			arr[num - 1] = 0;
 		}
 		for (let i = 0; i < arr.length; i++) {
 			if (arr[i] === 1) bool = true;
