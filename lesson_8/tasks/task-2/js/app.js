@@ -7,7 +7,7 @@ alert(`
 `);
 
 //номери днів, протягом яких кількість відвідувачів була меншою за 20;
-function fewVisitors(...array) {
+function fewVisitors(array) {
 	let dayWeak = [];
 	for (let i = 0; i < array.length; i++) {
 		if (array[i] < 20) {
@@ -19,7 +19,7 @@ function fewVisitors(...array) {
 
 //загальну кількість клієнтів у робочі дні та окремо загальну кількість днів на вихідних.
 //робочі дні
-function totalNumberWeekDay(...array) {
+function totalNumberWeekDay(array) {
 	let weekday = 0;
 	for (let i = 0; i <= 4; i++) {
 		weekday += array[i];
@@ -27,7 +27,7 @@ function totalNumberWeekDay(...array) {
 	return weekday;
 }
 //вихідні дні
-function totalNumberDayOff(...array) {
+function totalNumberDayOff(array) {
 	let dayOff = 0;
 	for (let i = 5; i <= 6; i++) {
 		dayOff += array[i];
@@ -36,7 +36,7 @@ function totalNumberDayOff(...array) {
 }
 
 //номери днів, коли кількість відвідувачів була мінімальною;
-function visitorMin(...array) {
+function visitorMin(array) {
 	let minNum = Math.min(...array);
 	let numberDays = [];
 	for (let i = 0; i < array.length; i++) {
@@ -47,7 +47,7 @@ function visitorMin(...array) {
 	return numberDays;
 }
 //номери днів, коли кількість відвідувачів була максимальною;
-function visitorMax(...array) {
+function visitorMax(array) {
 	let maxNum = Math.max(...array);
 	let numberDays = [];
 	for (let i = 0; i < array.length; i++) {
@@ -68,14 +68,14 @@ try {
 		}
 		arr.push(day);
 	}
-	let minNumberToTwenty = fewVisitors(...arr);
+	let minNumberToTwenty = fewVisitors(arr);
 	document.write(`
   номери днів, 
   протягом яких кількість відвідувачів була меншою за 20: ${minNumberToTwenty} 
 </br>`);
 
-	let numberWeekday = totalNumberWeekDay(...arr);
-	let numberDayOff = totalNumberDayOff(...arr);
+	let numberWeekday = totalNumberWeekDay(arr);
+	let numberDayOff = totalNumberDayOff(arr);
 	document.write(`
     Кількість клієнтів у робочі дні становить: ${numberWeekday}
     </br>
@@ -83,13 +83,13 @@ try {
     </br>
 `);
 
-	let minDays = visitorMin(...arr);
+	let minDays = visitorMin(arr);
 	document.write(`
    Номери днів коли кількість відвідувачів була мінімальною: ${minDays}
    </br>
 `);
 
-	let maxDays = visitorMax(...arr);
+	let maxDays = visitorMax(arr);
 	document.write(`
    Номери днів коли кількість відвідувачів була максимальною: ${maxDays}
    </br>
