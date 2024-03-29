@@ -40,9 +40,6 @@ function gameSeaFight(funcGenerateField) {
 		}
 		shots--;
 	} while (shots);
-	let resultGame = field.flat().find((item) => item === 1);
-	if (resultGame) alert("Нажаль ви не виграли");
-	else alert("Вітаю, ви виграли");
 	document.write(`1 - це корабель </br> X - це знищенний корабель </br>
 	`)
 	field.forEach(element => {
