@@ -84,33 +84,56 @@ document.write(`
 	Під час сортування масиву з 30 елементів методом змішування було виконано : ${countChangeTwo} замін,та ${countCompareTwo} порівнянь </br>
 `);
 
-
 //сортування вибором
 let arrayNumbersThree = generateArray(30);
 function arraySortedExclusion(arrayWillSort) {
-	let arrLength = arrayWillSort.length-1
-	let counnChange = 0
-	let countCompare = 0
-	
-	for (let i = 0; i <= arrLength ; i++) {
-		let minIndex = i
-		for (let p = i+1; p <= arrLength; p++) {
-			if(arrayWillSort[p]<arrayWillSort[minIndex]){
-				countCompare++
-				minIndex = p
-			}
-			
-		}
-		if(minIndex!==i){
-			let addLet = arrayWillSort[i]
-			arrayWillSort[i] = arrayWillSort[minIndex]
-			arrayWillSort[minIndex]=addLet
-			counnChange++
-		}
-		
-	}
-return[ arrayWillSort,counnChange,countCompare]
+	let arrLength = arrayWillSort.length - 1;
+	let counnChange = 0;
+	let countCompare = 0;
 
+	for (let i = 0; i <= arrLength; i++) {
+		let minIndex = i;
+		for (let p = i + 1; p <= arrLength; p++) {
+			if (arrayWillSort[p] < arrayWillSort[minIndex]) {
+				countCompare++;
+				minIndex = p;
+			}
+		}
+		if (minIndex !== i) {
+			let addLet = arrayWillSort[i];
+			arrayWillSort[i] = arrayWillSort[minIndex];
+			arrayWillSort[minIndex] = addLet;
+			counnChange++;
+		}
+	}
+	return [arrayWillSort, counnChange, countCompare];
 }
 console.log(arraySortedExclusion(arrayNumbersThree));
 //Задача 3. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів та порівнянь чисел під час сортування включеннями.
+
+let arrayNumbersFour = generateArray(30);
+function sortedArrayTurnOn(array) {
+	let countCompare = 0;
+	let countChange = 0;
+	for (let i = 1; i < array.length; i++) {
+		let currentElement = array[i];
+		let prevElement = i - 1;
+		while (prevElement >= 0 && array[prevElement] > currentElement) {
+			countCompare++;
+			array[prevElement + 1] = array[prevElement];
+			prevElement--;
+		}
+		countChange++;
+		array[prevElement + 1] = currentElement;
+	}
+	return [array, countChange, countCompare];
+}
+
+let [sortedTurnOn, countChangeTurnOn, countCompareTurnOn] = sortedArrayTurnOn(arrayNumbersFour);
+
+document.write(`
+	${sortedTurnOn}</br>
+	Під час сортування масиву з 30 елементів методом включення було виконано : ${countChangeTurnOn} замін,та ${countCompareTurnOn} порівнянь </br>
+`);
+
+
