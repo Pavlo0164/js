@@ -1,4 +1,4 @@
-//Задача 1. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів та порівнянь чисел під час сортування бульбашкою
+//генерація масиву
 function generateArray(number) {
 	let arrayNumbers = [];
 	for (let i = 0; i < number; i++) {
@@ -7,10 +7,10 @@ function generateArray(number) {
 	}
 	return arrayNumbers;
 }
-
-let arrayNumbers = generateArray(30);
-
+//Задача 1. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів та порівнянь чисел під час сортування бульбашкою
+//сортування бульбашкою
 function arrSortUsedBuble(arrayWillSort) {
+	let arrWithChanges = [];
 	let resultChange;
 	let countChange = 0;
 	let countCompare = 0;
@@ -25,23 +25,18 @@ function arrSortUsedBuble(arrayWillSort) {
 				arrayWillSort[i + 1] = addLet;
 				resultChange = true;
 				countChange++;
+				arrWithChanges.push([...arrayWillSort]);
 			}
 		}
 		if (resultChange) arrayLength--;
 	} while (resultChange);
-	return [arrayWillSort, countChange, countCompare];
+	return [arrayWillSort, countChange, countCompare, arrWithChanges];
 }
-
-let [sortedArray, countChange, countCompare] = arrSortUsedBuble(arrayNumbers);
-document.write(`
-    ${sortedArray}</br>
-	Під час сортування масиву з 30 елементів методом сортування бульбашкою було виконано : ${countChange} замін,та ${countCompare} порівнянь </br>
-`);
-
 //Задача 2. Дано масив 30 випадкових цілих чисел.
 //Підрахувати скільки було обмінів та порівнянь чисел під час сортування змішуванням.
-let arrayNumbersTwo = generateArray(30);
+
 function sortArrMixBuble(arrayWillSort) {
+	let arrWithChanges = [];
 	let resultChange;
 	let countChange = 0;
 	let countCompare = 0;
@@ -57,6 +52,7 @@ function sortArrMixBuble(arrayWillSort) {
 				arrayWillSort[i + 1] = addLet;
 				countChange++;
 				resultChange = true;
+				arrWithChanges.push([...arrayWillSort]);
 			}
 		}
 		if (!resultChange) break;
@@ -72,20 +68,17 @@ function sortArrMixBuble(arrayWillSort) {
 				arrayWillSort[p - 1] = twoAddLet;
 				countChange++;
 				resultChange = true;
+				arrWithChanges.push([...arrayWillSort]);
 			}
 		}
 		if (resultChange) start++;
 	} while (resultChange);
-	return [arrayWillSort, countChange, countCompare];
+	return [arrayWillSort, countChange, countCompare, arrWithChanges];
 }
-let [arraySortedTwo, countChangeTwo, countCompareTwo] = sortArrMixBuble(arrayNumbersTwo);
-document.write(`
-	${arraySortedTwo}</br>
-	Під час сортування масиву з 30 елементів методом змішування було виконано : ${countChangeTwo} замін,та ${countCompareTwo} порівнянь </br>
-`);
+
 
 //сортування вибором
-let arrayNumbersThree = generateArray(30);
+
 function arraySortedExclusion(arrayWillSort) {
 	let arrLength = arrayWillSort.length - 1;
 	let counnChange = 0;
@@ -108,11 +101,10 @@ function arraySortedExclusion(arrayWillSort) {
 	}
 	return [arrayWillSort, counnChange, countCompare];
 }
-console.log(arraySortedExclusion(arrayNumbersThree));
-//Задача 3. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів та порівнянь чисел під час сортування включеннями.
 
-let arrayNumbersFour = generateArray(30);
+//Задача 3. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів та порівнянь чисел під час сортування включеннями.
 function sortedArrayTurnOn(array) {
+	let arrWithChanges = [];
 	let countCompare = 0;
 	let countChange = 0;
 	for (let i = 1; i < array.length; i++) {
@@ -124,16 +116,57 @@ function sortedArrayTurnOn(array) {
 			prevElement--;
 		}
 		countChange++;
+		arrWithChanges.push([...array]);
 		array[prevElement + 1] = currentElement;
 	}
-	return [array, countChange, countCompare];
+	return [array, countChange, countCompare, arrWithChanges];
 }
 
-let [sortedTurnOn, countChangeTurnOn, countCompareTurnOn] = sortedArrayTurnOn(arrayNumbersFour);
 
-document.write(`
+
+try {
+	//завдання 1
+	let arrayNumbersFour = generateArray(5);
+	let [sortedTurnOn, countChangeTurnOn, countCompareTurnOn, arrWithChangesSortTurnOn] =
+		sortedArrayTurnOn(arrayNumbersFour);
+	document.write(`
+    </br></br>
 	${sortedTurnOn}</br>
 	Під час сортування масиву з 30 елементів методом включення було виконано : ${countChangeTurnOn} замін,та ${countCompareTurnOn} порівнянь </br>
+	Послідовність перестанов елементів під час сортування включення:</br>
+	`);
+	arrWithChangesSortTurnOn.forEach((element) => {
+		document.write(`${element} </br>`);
+	});
+	//завдання 2
+	///////////////////////////
+	let arrayNumbersTwo = generateArray(5);
+	let [arraySortedTwo, countChangeTwo, countCompareTwo, arrWithChangesSortMixed] = sortArrMixBuble(arrayNumbersTwo);
+	document.write(`
+</br></br>
+	${arraySortedTwo}</br>
+	Під час сортування масиву з 30 елементів методом змішування було виконано : ${countChangeTwo} замін,та ${countCompareTwo} порівнянь </br>
+	Послідовність перестанов елементів під час сортування змішуванням:</br>
+	`);
+	arrWithChangesSortMixed.forEach((element) => {
+		document.write(`${element} </br>`);
+	});
+	//////////////////////////////////////////////
+	//завдання 3
+	let arrayNumbers = generateArray(5);
+	let [sortedArray, countChange, countCompare, arrWithChanges] = arrSortUsedBuble(arrayNumbers);
+	document.write(`
+    ${sortedArray}</br>
+	Під час сортування масиву з 30 елементів методом сортування бульбашкою було виконано : ${countChange} замін,та ${countCompare} порівнянь </br>
+	Послідовність перестанов елементів під час сортування бульбашкою:</br>
 `);
-
+	arrWithChanges.forEach((element) => {
+		document.write(`${element} </br>`);
+	});
+	///////////////////////////////////////////////////////////////
+	let arrayNumbersThree = generateArray(5);
+	console.log(arraySortedExclusion(arrayNumbersThree));
+} catch (error) {
+	console.log(error.message);
+}
 
