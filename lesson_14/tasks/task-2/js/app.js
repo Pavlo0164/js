@@ -4,6 +4,7 @@ let obj = {
 	month: 5,
 	year: 2000
 };
+document.write(`Поточний рік:${obj.year} , поточний місяць :${obj.month}</br>`);
 let numMonth = parseInt(prompt("Введіть кількість місяців"));
 function returnYear(obj, numMonth) {
 	obj.year += Math.floor((obj.month + numMonth) / 12);
