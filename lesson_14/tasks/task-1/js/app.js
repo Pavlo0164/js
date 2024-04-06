@@ -127,20 +127,20 @@ let objectsCompany = [
 ];
 
 // 1) загальну вартість усіх сайтів
-let amountCostWebSites = objectsCompany.reduce((prevSum, item) => (prevSum += item.costWebSite), 0);
+let amountCostWebSites = objectsCompany.reduce((prevSum, item) => (prevSum + item.costWebSite), 0);
 document.write(`Загальна вартість сайтів становить : ${amountCostWebSites}</br>`);
 
 // 2) кількість сайтів, що було зроблено між 2000 та 2009 рр.
 let numberSites = objectsCompany.reduce(
-	(prevCount, item) => (item.yearOld >= 2000 && item.yearOld <= 2009 ? (prevCount += 1) : prevCount),
+	(prevCount, item) => (item.yearOld >= 2000 && item.yearOld <= 2009 ? (prevCount + 1) : prevCount),
 	0
 );
 document.write(`кількість сайтів, що було зроблено між 2000 та 2009 рр становить :${numberSites}</br>`);
 
 // 3) кількість сайтів, де сума спонсорських вкладень була більшою за 100000
 let numberSitesCashSum = objectsCompany.reduce((prevCount, item) => {
-	let sumCach = item.contributs.reduce((prevSum, item) => (prevSum += item.amountCash), 0);
-	if (sumCach > 100000) return (prevCount += 1);
+	let sumCach = item.contributs.reduce((prevSum, item) => (prevSum + item.amountCash), 0);
+	if (sumCach > 100000) return (prevCount + 1);
 	else return prevCount;
 }, 0);
 document.write(

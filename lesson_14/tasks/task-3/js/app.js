@@ -474,11 +474,11 @@ let dataList = [
 
 //1) Загальну вартість (нові ціни - price)
 //dataList
-let sumPrice = dataList.reduce((prevSum, item) => (prevSum += item.price), 0);
+let sumPrice = dataList.reduce((prevSum, item) => prevSum + item.price, 0);
 document.write(`Загальна вартість всіх товарів : ${sumPrice} hrn ))))))</br>`);
 
 // 2)Знайти кількість товарів, у яких ціна зменшилась (price < old_price).
-let numProduct = dataList.reduce((prevSum, item) => (item.price < item.old_price ? (prevSum += 1) : prevSum), 0);
+let numProduct = dataList.reduce((prevSum, item) => (item.price < item.old_price ? prevSum + 1 : prevSum), 0);
 document.write(`Кількість товарів у яких ціна змінювалася : ${numProduct} товарів </br>`);
 
 // 3) Товари, які доступні (sell_status:"available")
