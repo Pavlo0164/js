@@ -3,11 +3,8 @@
 //можливі підмножини: [], [1], [2], [3], [1, 2], [1, 3], [2, 3], [1, 2, 3].
 
 function recursFunc(array) {
-	console.log(...array);
 	for (let i = 0; i < array.length; i++) {
-
 		recursFunc(array.filter((item, index) => index !== i));
 	}
 }
-recursFunc([1, 2,3]);
-
+recursFunc([1, 2, 3]);
