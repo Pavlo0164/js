@@ -2,13 +2,13 @@
 // Клас повинен містити поля для зберігання кількості купюр кожного із номіналів від 5 до 200 гривень.
 //  Реалізувати методи знаходження максимальної та мінімальної сум, які може видати банкомат, та метод зняття деякої суми.
 class TBankomat {
-	constructor(five, ten, twenty, fifty, hundred, twoHundred) {
-		this["5"] = five;
-		this["10"] = ten;
-		this["20"] = twenty;
-		this["50"] = fifty;
-		this["100"] = hundred;
+	constructor(twoHundred, hundred, fifty, twenty, ten,five) {
 		this["200"] = twoHundred;
+		this["100"] = hundred;
+		this["50"] = fifty;
+		this["20"] = twenty;
+		this["10"] = ten;
+		this["5"] = five;
 	}
 	work() {
 		let result;
@@ -31,9 +31,12 @@ class TBankomat {
 		} while (result);
 	}
 	getMinSum() {
+		let minSum = Infinity;
 		for (const key in this) {
-			if (this[key]) return +key;
+			if (+key < minSum && this[key] !== 0) minSum = +key;
 		}
+		if(isFinite(minSum))return minSum
+		return 0
 	}
 	getMaxSum() {
 		let num = 0;
@@ -45,22 +48,25 @@ class TBankomat {
 		return num;
 	}
 	getSum(sum) {
+		if (sum > this.getMaxSum()) return `В банкоматі немає такої суми грошей`;
 		let cash = sum;
 		let arr = [];
 		for (const key in this) {
 			arr.push(key);
 		}
-		arr = arr.reverse();
+		 arr.reverse()
+		console.log(arr);
 		arr.forEach((item) => {
 			if (this[item]) {
 				while (this[item] && cash >= +item) {
+					//500
 					cash -= +item;
 					this[item]--;
 				}
 			}
 		});
 		if (!cash) return `Ви успішно зняли ${sum} грн`;
-		else return `Я трішки прорахувався.Ви зняли тільки ${sum - cash} грн`;
+		else throw new Error(`Банкомат не може видати вам цю суму`);
 	}
 	toString() {
 		let res = [];

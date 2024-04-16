@@ -18,18 +18,13 @@ class TMoney {
 		this.#historyRate = historyRate;
 	}
 	work() {
-		let answer;
-		do {
+		let answer = true
+		while (answer) {
+			answer = false
 			answer = parseInt(
 				prompt(`
-			Привіт.Вітаю у нашому обміннику.\n
-			Курс валюти сьогодні такий: \n
-			\t\t\t купівля USD : ${this.#dollarRateBuy}\n
-			\t\t\t продаж USD : ${this.#dollarRateSell}\n
-			Залишок USD : ${this.#cashUSD}\n
-			Залишок UAH : ${this.#cashUAH}\n
-			Якщо бажаєш купити у нас USD, натисни 1.\n
-			Якщо бажаєш продати USD, натисни 2 \n
+			Привіт.Вітаю у нашому обміннику.\n Курс валюти сьогодні такий: \n ${this.toString()}
+			Якщо бажаєш купити у нас USD, натисни 1.\n Якщо бажаєш продати USD, натисни 2 \n
 			Якщо не бажаєш нічого обміняти натисни 0
 		`)
 			);
@@ -41,8 +36,8 @@ class TMoney {
 				let sum = parseFloat(prompt(`Скільки USD бажаєш продати?`));
 				let result = this.buyCashUAN(sum);
 				alert(`${result}`);
-			}
-		} while (answer);
+			}else alert(`Бувай`)
+		} 
 	}
 	//змінити курс
 	changeRate(buy, sell, code) {
@@ -80,7 +75,6 @@ class TMoney {
 	//купити UAH
 	buyCashUAN(usd) {
 		let UsdInUah = Math.floor(usd * this.#dollarRateSell * 100) / 100;
-
 		if (UsdInUah <= this.#cashUAH) {
 			this.#cashUAH = Math.ceil((this.#cashUAH - UsdInUah) * 100) / 100;
 			this.#cashUSD += usd;
