@@ -2,7 +2,7 @@
 // Клас повинен містити поля для зберігання кількості купюр кожного із номіналів від 5 до 200 гривень.
 //  Реалізувати методи знаходження максимальної та мінімальної сум, які може видати банкомат, та метод зняття деякої суми.
 class TBankomat {
-	constructor(twoHundred, hundred, fifty, twenty, ten,five) {
+	constructor(twoHundred, hundred, fifty, twenty, ten, five) {
 		this["200"] = twoHundred;
 		this["100"] = hundred;
 		this["50"] = fifty;
@@ -35,8 +35,8 @@ class TBankomat {
 		for (const key in this) {
 			if (+key < minSum && this[key] !== 0) minSum = +key;
 		}
-		if(isFinite(minSum))return minSum
-		return 0
+		if (isFinite(minSum)) return minSum;
+		return 0;
 	}
 	getMaxSum() {
 		let num = 0;
@@ -54,9 +54,7 @@ class TBankomat {
 		for (const key in this) {
 			arr.push(key);
 		}
-		 arr.reverse()
-		console.log(arr);
-		arr.forEach((item) => {
+		arr.reverse().forEach((item) => {
 			if (this[item]) {
 				while (this[item] && cash >= +item) {
 					//500
