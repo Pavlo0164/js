@@ -12,7 +12,7 @@ class TBankomat {
 	}
 	work() {
 		let result;
-
+		
 		do {
 			result = parseInt(
 				prompt(`
