@@ -1,6 +1,7 @@
 // Створити службове авто (водій, марка, номер).
 //  Створити клас таким чином, щоб можна було створити тільки один екземпляр цього класу.
 class Driver {
+	#age
 	constructor(name, surname, age) {
 		this.name = name;
 		this.surname = surname;
@@ -8,7 +9,10 @@ class Driver {
 	}
 	set Age(age) {
 		if (age < 18) throw new Error(`Водію не може бути менше 18 років`);
-		this.age = age;
+		this.#age = age;
+	}
+	get Age(){
+		return this.#age
 	}
 	
 }

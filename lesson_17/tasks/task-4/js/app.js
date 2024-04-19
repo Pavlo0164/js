@@ -12,11 +12,11 @@ class FirmProduce {
 		this.#registrNumber = registrNumber;
 	}
 	get RegistrNumber() {
-		this.#registrNumber;
+		return this.#registrNumber;
 	}
 	toString() {
 		return `Firms name : ${this.name}<br>
-                Firms register number : ${this.#registrNumber}<br>`;
+                Firms register number : ${this.RegistrNumber}<br>`;
 	}
 }
 class ItemProduct {
@@ -45,8 +45,8 @@ class ItemProduct {
 	}
 	toString() {
 		return `Name: ${this.name}<br>
-                UnitOfMeasure: ${this.#unitOfMeasure}<br>
-                Amount: ${this.#amount}<br>
+                UnitOfMeasure: ${this.UnitOfMeasure}<br>
+                Amount: ${this.Amount}<br>
                 Firm:<br> ${this.firmProduce}<br>`;
 	}
 }
@@ -56,14 +56,14 @@ class Stock {
 		this.Products = productsList;
 	}
 	toString() {
-		this.#products.forEach((item) => {
+		this.Products.forEach((item) => {
 			document.write(item);
 		});
 		return "";
 	}
 	set Products(productsList) {
-		if (!Array.isArray(productsList)) throw new Error(`Товари повинні зберігатися тільки у масиві`);
-		this.#products = productsList;
+		if (!Array.isArray(productsList)) this.#products.push(productsList);
+		else this.#products = productsList;
 	}
 	get Products() {
 		return this.#products;
@@ -71,13 +71,13 @@ class Stock {
 	addProduct(name, unitOfMeasure, amount, nameFirm, firmRegisterNumber) {
 		let itemProduct = new ItemProduct(name, unitOfMeasure, amount, nameFirm, firmRegisterNumber);
 		if (itemProduct) {
-			this.#products.push(itemProduct);
+			this.Products = itemProduct;
 			return true;
 		} else return false;
 	}
 	deleteProduct(name) {
 		let result = false;
-		this.#products.forEach((item, index) => {
+		this.Products.forEach((item, index) => {
 			if (item.name.toLowerCase() === name.toLowerCase()) {
 				result = true;
 				this.#products.splice(index, 1);
@@ -88,12 +88,12 @@ class Stock {
 		else return false;
 	}
 	filterToNameProduct(name) {
-		let result = this.#products.filter((item) => item.name.toLowerCase() === name.toLowerCase());
+		let result = this.Products.filter((item) => item.name.toLowerCase() === name.toLowerCase());
 		if (result.length > 0) return result;
 		return false;
 	}
 	filterToNameFirm(name) {
-		let result = this.#products.filter((item) => item.firmProduce.name.toLowerCase() === name.toLowerCase());
+		let result = this.Products.filter((item) => item.firmProduce.name.toLowerCase() === name.toLowerCase());
 		if (result.length > 0) return result;
 		return false;
 	}

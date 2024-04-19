@@ -4,6 +4,9 @@
 // декілька об’єктів-нагадувачів. Методи зупинки таймера, метод зміни повідомлення без зупинки таймера.
 class Reminder {
 	static #counter = 0;
+	static get Counter(){
+		return this.#counter
+	}
 	static remind;
 	static get Counter() {
 		return Reminder.#counter;
@@ -15,7 +18,7 @@ class Reminder {
 			this.remind = setInterval(() => {
 				Reminder.#counter++;
 				document.write(`${this.event}<br>`);
-				document.write(`${Reminder.#counter}<br>`);
+				document.write(`${Reminder.Counter}<br>`);
 			}, this.ms);
 			Reminder.remind = this;
 		} else return Reminder.remind;
