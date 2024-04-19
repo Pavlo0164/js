@@ -33,16 +33,16 @@ class TDate {
 		this.#year = year;
 	}
 	toString() {
-		return `${this.#day}.${this.#month}.${this.#year}`;
+		return `${this.Day}.${this.Month}.${this.Year}`;
 	}
 	renderDate() {
-		if (this.#day > 31) {
-			this.#month += Math.floor(this.#day / 31);
-			this.#day = this.#day % 31;
+		if (this.Day > 31) {
+			this.#month += Math.floor(this.Day / 31);
+			this.#day = this.Day % 31;
 		}
-		if (this.#month > 12) {
-			this.#year += Math.floor(this.#month / 12);
-			this.#month = this.#month % 12;
+		if (this.Month > 12) {
+			this.#year += Math.floor(this.Month / 12);
+			this.#month = this.Month % 12;
 		}
 	}
 	addDay(day) {
@@ -54,19 +54,19 @@ class TDate {
 		this.renderDate();
 	}
 	addYear(year) {
-		if (this.#year + year > 3000) throw new Error("Не коректна кількість років");
+		if (this.Year + year > 3000) throw new Error("Не коректна кількість років");
 		this.#year += year;
 	}
 	renderDeleteDate() {
-		if (this.#day < 1) {
-			let numMonth = Math.ceil(Math.abs(this.#day) / 31);
+		if (this.Day < 1) {
+			let numMonth = Math.ceil(Math.abs(this.Day) / 31);
 			this.#month -= numMonth;
-			this.#day = numMonth * 31 - Math.abs(this.#day);
+			this.#day = numMonth * 31 - Math.abs(this.Day);
 		}
-		if (this.#month < 1) {
-			let numYear = Math.ceil(Math.abs(this.#month) / 12);
+		if (this.Month < 1) {
+			let numYear = Math.ceil(Math.abs(this.Month) / 12);
 			this.#year -= numYear;
-			this.#month = numYear * 12 - Math.abs(this.#month);
+			this.#month = numYear * 12 - Math.abs(this.Month);
 		}
 	}
 	deleteDay(day) {
@@ -78,7 +78,7 @@ class TDate {
 		this.renderDeleteDate();
 	}
 	deleteYear(year) {
-		if (this.#year - year < 1) throw new Error("Не коректний рік");
+		if (this.Year - year < 1) throw new Error("Не коректний рік");
 		this.#year -= year;
 	}
 }
