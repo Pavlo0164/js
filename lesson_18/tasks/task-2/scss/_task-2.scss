@@ -1,0 +1,58 @@
+.wrapper {
+}
+.header {
+}
+.page {
+	&__container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+         flex-direction: column;
+        gap: 20px;
+	}
+
+	&__converter {
+		width: 250px;
+		height: 300px;
+		border: 2px solid #000;
+		border-radius: 20px;
+		padding: 15px;
+		background-color: gray;
+       
+	}
+}
+.converter {
+    font-size: 40px;
+	&__input {
+		& input {
+			border: 3px solid #000;
+			border-radius: 10px;
+			background-color: #04ff0074;
+			padding: 5px;
+		}
+		margin-bottom: 15px;
+	}
+
+	&__buttons {
+		display: flex;
+		justify-content: space-around;
+        margin-bottom: 15px;
+	}
+
+	&__button {
+        width: 50px;
+        border: 4px solid #000000;
+        border-radius:10px;
+        background-color: rgb(205, 205, 205);
+	}
+}
+.button {
+}
+.button-dollar {
+}
+.button-euro {
+}
+.button-result {
+}
+.footer {
+}

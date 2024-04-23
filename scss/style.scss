@@ -1,7 +1,8 @@
 @import "_null.scss";
 /*=============================*/
 @import "../lesson_18/tasks/task-1/scss/_task-1.scss";
-
+@import "../lesson_18/tasks/task-2/scss/task-2";
+@import "../lesson_18/tasks/task-3/scss/task-3";
 .wrapper {
 	display: flex;
 	flex-direction: column;
@@ -11,7 +12,7 @@
 	min-height: 100%;
 }
 .page {
-	flex:  1 1 auto;
+	flex: 1 1 auto;
 	padding: 40px;
 	&__link-lessons {
 		display: flex;
@@ -45,4 +46,12 @@
 
 .work {
 	background-color: red;
+}
+
+.button-result {
+	width: 400px;
+	border: 2px solid black;
+	border-radius: 20px;
+	background-color: #756d6d;
+	padding: 10px;
 }

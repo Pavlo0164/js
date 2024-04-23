@@ -1,4 +1,3 @@
-
 const buttonNumber0 = document.querySelector(".button-number-0");
 const buttonNumber1 = document.querySelector(".button-number-1");
 const buttonNumber2 = document.querySelector(".button-number-2");
@@ -34,12 +33,9 @@ buttonReset.onclick = function reset() {
 	buttonMult.classList.remove("active");
 };
 let reset = () => {
-	setTimeout(() => {
-		Calc.action = "";
-		Calc.numberOne = "";
-		Calc.numberTwo = "";
-		resultText.innerText = "0";
-	}, 2000);
+	Calc.action = "";
+	Calc.numberOne = "";
+	Calc.numberTwo = "";
 };
 buttonResult.onclick = function result() {
 	if (Calc.action && Calc.numberOne && Calc.numberTwo) {
@@ -68,7 +64,7 @@ buttonResult.onclick = function result() {
 	}
 };
 buttonPlus.onclick = function plus() {
-	if (Calc.numberOne) {
+	if (Calc.numberOne && !Calc.numberTwo) {
 		Calc.action = "+";
 		buttonPlus.classList.add("active");
 		buttonMinus.classList.remove("active");
@@ -77,7 +73,7 @@ buttonPlus.onclick = function plus() {
 	}
 };
 buttonMinus.onclick = function minus() {
-	if (Calc.numberOne) {
+	if (Calc.numberOne && !Calc.numberTwo) {
 		Calc.action = "-";
 		buttonMinus.classList.add("active");
 		buttonPlus.classList.remove("active");
@@ -86,7 +82,7 @@ buttonMinus.onclick = function minus() {
 	}
 };
 buttonMult.onclick = function mult() {
-	if (Calc.numberOne) {
+	if (Calc.numberOne && !Calc.numberTwo) {
 		Calc.action = "*";
 		buttonMult.classList.add("active");
 		buttonMinus.classList.remove("active");
@@ -95,7 +91,7 @@ buttonMult.onclick = function mult() {
 	}
 };
 buttonDivision.onclick = function division() {
-	if (Calc.numberOne) {
+	if (Calc.numberOne && !Calc.numberTwo) {
 		Calc.action = "/";
 		buttonDivision.classList.add("active");
 		buttonMinus.classList.remove("active");
