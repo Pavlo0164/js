@@ -98,11 +98,11 @@ for (let i = 0; i < 3; i++) {
 /*====================================================*/
 const buttonResult = document.createElement("button");
 buttonResult.innerText = "Розрахувати вартість";
-buttonResult.classList.add("button-result");
+buttonResult.classList.add("button-results");
 wrapper.append(buttonResult);
 
 buttonResult.onclick = function result() {
-	const res = document.querySelector(".show-result");
+	const res = document.querySelector(".show-results");
 	if (res) res.remove();
 	let result = 0;
 	result += parseInt(select.value);
