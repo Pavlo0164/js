@@ -116,6 +116,6 @@ buttonResult.onclick = function result() {
 	}
 	const showResult = document.createElement("div");
 	showResult.innerText = `Вартість поїздки становить : ${result} грн`;
-	showResult.classList.add("show-result");
+	showResult.classList.add("show-results");
 	wrapper.append(showResult);
 };
