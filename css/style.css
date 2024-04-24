@@ -303,3 +303,43 @@ h6 {
   background-color: #756d6d;
   padding: 10px;
 }
+
+.main {
+  padding: 20px;
+}
+.main__tasks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 30px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.main__tasks button {
+  padding: 20px 50px;
+  font-size: 25px;
+  background-color: gray;
+  color: white;
+  border-radius: 20px;
+}
+.main__container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.main__wrapper-result {
+  border: 2px solid black;
+  border-radius: 20px;
+  margin: 20px;
+  padding: 20px;
+  min-height: 500px;
+}
+
+.input-task-2 {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.actives {
+  background-color: yellow;
+}

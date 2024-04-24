@@ -55,3 +55,65 @@
 	background-color: #756d6d;
 	padding: 10px;
 }
+.wrapper {
+}
+.header {
+}
+.main {
+	padding: 20px;
+	&__tasks {
+		display: flex;
+		gap: 30px;
+		flex-wrap: wrap;
+		& button {
+			padding: 20px 50px;
+			font-size: 25px;
+			background-color: gray;
+			color: white;
+			border-radius: 20px;
+		}
+	}
+	&__container {
+		max-width: 1000px;
+		margin: 0 auto;
+	}
+
+	&__task-1 {
+	}
+
+	&__task-2 {
+	}
+
+	&__task-3 {
+	}
+
+	&__task-4 {
+	}
+
+	&__task-5 {
+	}
+
+	&__task-6 {
+	}
+
+	&__task-7 {
+	}
+
+	&__wrapper-result {
+		border: 2px solid black;
+		border-radius: 20px;
+		margin: 20px;
+		padding: 20px;
+		min-height: 500px;
+	}
+}
+.footer {
+}
+.input-task-2 {
+	border: 2px solid black;
+	border-radius: 10px;
+	padding: 10px;
+}
+.actives{
+	background-color: yellow;
+}
