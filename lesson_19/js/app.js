@@ -35,7 +35,7 @@ buttonsWrapper.addEventListener("click", (event) => {
 wrapperResult.addEventListener("focusin", (event) => {
 	const elem = event.target;
 	console.log("focus");
-	elem.addEventListener("keydown", (e) => {
+	elem.addEventListener("input", (e) => {
 		const el = e.target;
 		console.log(el.value);
 		const parentLabel = el.parentElement;
