@@ -322,6 +322,9 @@ h6 {
   color: white;
   border-radius: 20px;
 }
+.main__tasks button.active {
+  background-color: red;
+}
 .main__container {
   max-width: 1000px;
   margin: 0 auto;
@@ -333,6 +336,25 @@ h6 {
   padding: 20px;
   min-height: 500px;
 }
+.main__wrapper-result > .task-3 {
+  padding: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 50px;
+}
+.main__wrapper-result > .task-3 ol {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 20px;
+}
 
 .input-task-2 {
   border: 2px solid black;
@@ -340,6 +362,77 @@ h6 {
   padding: 10px;
 }
 
-.actives {
-  background-color: yellow;
+.task-one {
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+}
+
+.li-task-3 {
+  padding: 5px;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 100px;
+}
+
+.button-task-3 {
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 20px 50px;
+}
+
+.table-task-4 {
+  padding: 10px;
+}
+.table-task-4 tr td {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+@media (any-hover: hover) {
+  .table-task-4 tr td:hover {
+    background-color: #ddadad;
+  }
+}
+.table-task-4 tr td:active {
+  background-color: #eddada;
+}
+.table-task-4:not(:last-child) {
+  margin-bottom: 50px;
+}
+
+.card-task-5 {
+  border: 1px solid gray;
+  background-color: rgb(235, 221, 221);
+  padding: 10px;
+}
+.card-task-5 > div {
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.wrap-task-5 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 20px;
+}
+
+.active-task-5 {
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  outline: 4px solid greenyellow;
+  border-color: greenyellow;
 }

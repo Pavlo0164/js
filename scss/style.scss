@@ -66,6 +66,9 @@
 		gap: 30px;
 		flex-wrap: wrap;
 		& button {
+			&.active {
+				background-color: red;
+			}
 			padding: 20px 50px;
 			font-size: 25px;
 			background-color: gray;
@@ -77,43 +80,89 @@
 		max-width: 1000px;
 		margin: 0 auto;
 	}
-
-	&__task-1 {
-	}
-
-	&__task-2 {
-	}
-
-	&__task-3 {
-	}
-
-	&__task-4 {
-	}
-
-	&__task-5 {
-	}
-
-	&__task-6 {
-	}
-
-	&__task-7 {
-	}
-
 	&__wrapper-result {
 		border: 2px solid black;
 		border-radius: 20px;
 		margin: 20px;
 		padding: 20px;
 		min-height: 500px;
+		& > .task-3 {
+			padding: 50px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 50px;
+
+			& ol {
+				display: flex;
+				flex-direction: column;
+				row-gap: 20px;
+			}
+		}
 	}
 }
-.footer {
-}
+
 .input-task-2 {
 	border: 2px solid black;
 	border-radius: 10px;
 	padding: 10px;
 }
-.actives{
-	background-color: yellow;
+.task-one {
+	cursor: pointer;
+}
+li {
+	list-style: none;
+}
+.li-task-3 {
+	padding: 5px;
+	text-align: center;
+	border: 2px solid black;
+	border-radius: 10px;
+	width: 100px;
+}
+.button-task-3 {
+	border: 2px solid black;
+	border-radius: 20px;
+	padding: 20px 50px;
+}
+.table-task-4 {
+	& tr td {
+		transition: all 0.3s ease;
+		padding: 10px;
+		border: 1px solid black;
+		border-radius: 10px;
+		text-align: center;
+		@media (any-hover: hover) {
+			&:hover {
+				background-color: #ddadad;
+			}
+		}
+		&:active {
+			background-color: #eddada;
+		}
+		cursor: pointer;
+	}
+	padding: 10px;
+	&:not(:last-child) {
+		margin-bottom: 50px;
+	}
+}
+.card-task-5 {
+	border: 1px solid gray;
+	background-color: rgb(235, 221, 221);
+	padding: 10px;
+	& > div {
+		border-radius: 30px;
+		overflow: hidden;
+	}
+}
+.wrap-task-5 {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 20px;
+}
+.active-task-5 {
+	transition: all 0.3s ease;
+	outline: 4px solid greenyellow;
+	border-color: greenyellow;
 }
