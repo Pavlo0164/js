@@ -241,6 +241,8 @@ buttonsWrapper.addEventListener("click", (event) => {
 	const wrap = document.createElement("div");
 	wrap.style.height = "900px";
 	wrapperResult.append(wrap);
+
+	///
 	//task 1
 	if (el.classList.contains("main__task-1")) {
 		for (let i = 0; i < 10; i++) {
