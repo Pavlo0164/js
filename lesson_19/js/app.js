@@ -173,17 +173,16 @@ class Flower {
 	}
 }
 let flowers = [
-	new Flower("TOP", "../../img/image-1.jpeg", "Title1", "200.99"),
-	new Flower("NEW", "../../img/image-2.jpeg", "Title2", "100.99"),
-	new Flower("TOP", "../../img/image-3.jpeg", "Title3", "300.99"),
-	new Flower("TOP", "../../img/image-4.jpeg", "Title4", "500.99")
+	new Flower("TOP", "../img/image-1.jpeg", "Title1", "200.99"),
+	new Flower("NEW", "../img/image-2.jpeg", "Title2", "100.99"),
+	new Flower("TOP", "../img/image-3.jpeg", "Title3", "300.99"),
+	new Flower("TOP", "../img/image-4.jpeg", "Title4", "500.99")
 ];
 class Snow {
 	constructor(urlSnow, countSnow) {
 		this.urlSnow = urlSnow;
 		this.countSnow = countSnow;
 		this.el = this.render();
-		this.work = this.work();
 	}
 	createSnow() {
 		const snowWrap = document.createElement("div");
@@ -209,8 +208,6 @@ class Snow {
 			};
 			setInterval(works, randomNum);
 		});
-
-		return true;
 	}
 	render() {
 		const container = document.createElement("div");
@@ -219,6 +216,7 @@ class Snow {
 		for (let i = 0; i < this.countSnow; i++) {
 			container.append(this.createSnow());
 		}
+		this.work();
 		return container;
 	}
 }
