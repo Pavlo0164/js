@@ -336,6 +336,9 @@ h6 {
   padding: 20px;
   min-height: 500px;
 }
+.main__wrapper-result > div {
+  height: 100%;
+}
 .main__wrapper-result > .task-3 {
   padding: 50px;
   display: -webkit-box;
@@ -454,6 +457,19 @@ li {
 .player > button {
   width: 50px;
   height: 50px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+@media (any-hover: hover) {
+  .player > button:hover {
+    background-color: #aeaeae;
+  }
+}
+.player > button:active {
+  background: transparent;
 }
 .player > button img {
   width: 100%;
@@ -487,4 +503,26 @@ li {
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
           transform: rotate(180deg);
+}
+
+.snow-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.snow {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.snow img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }

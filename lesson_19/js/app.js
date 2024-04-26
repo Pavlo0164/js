@@ -22,6 +22,12 @@
 //    При натисканні на зелену стрілку спортсмен переміщається у список для змагань.
 //     При натисканні на червону стрілку спортсмен переміщається у загальний список.
 
+// 7. Задача 1. Відобразити падаючий сніг.
+//  Сніжинка з’являється у верхній частині екрану (top =0) і з
+//   випадковою швидкістю рухається вниз (у setInterval викликати метод,
+// 	 у якому додавати крок до top). Як тільки сніжинка досягає нижньої частини екрану (top>maxTop)
+// 	  вона знову повинна з’явитись у верхній частині екрану (top=0).
+
 const buttonsWrapper = document.querySelector(".main__tasks");
 const wrapperResult = document.querySelector(".main__wrapper-result");
 //task 6
@@ -130,22 +136,25 @@ class ManagerPlayers {
 		this.players = players;
 		this.el = this.render();
 	}
+	eventArrow(event, manager) {
+		const { player, greenArrow, redArrow, name, surname, positionEvent } = event.detail;
+		const copyPlayer = new Player(name, surname);
+		const el = copyPlayer.el;
+		player.remove();
+		if (positionEvent === "left") {
+			copyPlayer.arrow.classList.add("rotate-arrow");
+			copyPlayer.arrow.setAttribute("src", redArrow);
+			manager.lastChild.append(el);
+		} else {
+			copyPlayer.arrow.classList.remove("rotate-arrow");
+			copyPlayer.arrow.setAttribute("src", greenArrow);
+			manager.firstChild.append(el);
+		}
+	}
 	render() {
 		const manager = document.createElement("div");
 		manager.addEventListener("eventArrow", (event) => {
-			const { player, greenArrow, redArrow, name, surname, positionEvent } = event.detail;
-			const copyPlayer = new Player(name, surname);
-			const el = copyPlayer.el;
-			player.remove();
-			if (positionEvent === "left") {
-				copyPlayer.arrow.classList.add("rotate-arrow");
-				copyPlayer.arrow.setAttribute("src", redArrow);
-				manager.lastChild.append(el);
-			} else {
-				copyPlayer.arrow.classList.remove("rotate-arrow");
-				copyPlayer.arrow.setAttribute("src", greenArrow);
-				manager.firstChild.append(el);
-			}
+			this.eventArrow(event, manager);
 		});
 		manager.classList.add("manager");
 		const leftStock = new StockPlayers(this.players);
@@ -169,6 +178,52 @@ let flowers = [
 	new Flower("TOP", "../../img/image-3.jpeg", "Title3", "300.99"),
 	new Flower("TOP", "../../img/image-4.jpeg", "Title4", "500.99")
 ];
+class Snow {
+	constructor(urlSnow, countSnow) {
+		this.urlSnow = urlSnow;
+		this.countSnow = countSnow;
+		this.el = this.render();
+		this.work = this.work();
+	}
+	createSnow() {
+		const snowWrap = document.createElement("div");
+		this.snows.push(snowWrap);
+
+		snowWrap.classList.add("snow");
+		let randomPos = Math.floor(Math.random() * 100);
+		snowWrap.style.left = `${randomPos}%`;
+		const snow = document.createElement("img");
+		snow.setAttribute("src", this.urlSnow);
+		snowWrap.append(snow);
+
+		return snowWrap;
+	}
+	work() {
+		this.snows.forEach((item) => {
+			let top = -20;
+			let randomNum = 15 + Math.floor(Math.random() * 40);
+			const works = () => {
+				if (top === 100) top = 0;
+				item.style.top = `${top + 1}%`;
+				top += 1;
+			};
+			setInterval(works, randomNum);
+		});
+
+		return true;
+	}
+	render() {
+		const container = document.createElement("div");
+		container.classList.add("snow-container");
+		this.snows = [];
+		for (let i = 0; i < this.countSnow; i++) {
+			container.append(this.createSnow());
+		}
+		return container;
+	}
+}
+
+//---------------------------------------------------------
 buttonsWrapper.addEventListener("click", (event) => {
 	//додавання класу активній кнопці
 	const buttons = buttonsWrapper.children;
@@ -186,6 +241,7 @@ buttonsWrapper.addEventListener("click", (event) => {
 	}
 	//додаткова оболонка результату
 	const wrap = document.createElement("div");
+	wrap.style.height = "600px";
 	wrapperResult.append(wrap);
 	//task 1
 	if (el.classList.contains("main__task-1")) {
@@ -280,6 +336,11 @@ buttonsWrapper.addEventListener("click", (event) => {
 		const manager = new ManagerPlayers(players);
 		wrap.append(manager.el);
 	}
+	//test
+	else if (el.classList.contains("main__task-7")) {
+		const snow = new Snow("../img/snow.svg", 100);
+		wrap.append(snow.el);
+	}
 });
 //task 5
 wrapperResult.addEventListener("click", (event) => {
@@ -330,7 +391,6 @@ wrapperResult.addEventListener("click", (event) => {
 		}
 	}
 });
-
 //task 2
 wrapperResult.addEventListener("focusin", (event) => {
 	const elem = event.target;
