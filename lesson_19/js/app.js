@@ -239,7 +239,7 @@ buttonsWrapper.addEventListener("click", (event) => {
 	}
 	//додаткова оболонка результату
 	const wrap = document.createElement("div");
-	wrap.style.height = "600px";
+	wrap.style.height = "900px";
 	wrapperResult.append(wrap);
 	//task 1
 	if (el.classList.contains("main__task-1")) {
@@ -332,6 +332,7 @@ buttonsWrapper.addEventListener("click", (event) => {
 	//task6
 	else if (el.classList.contains("main__task-6")) {
 		const manager = new ManagerPlayers(players);
+
 		wrap.append(manager.el);
 	}
 	//test
