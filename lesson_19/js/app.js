@@ -15,8 +15,145 @@
 // Задача 5. Відображаємо картки товарів, які користувач може вибирати.
 //  Вибраний товар має зелену рамку (при кліку робити toogle з класом вибраного елемента)
 
+// Задача 6. Дано список спортсменів.
+//  Потрібно сформувати список тих, які будуть брати участь у змаганні.
+//   При цьому є два стовпці. В одному відображені всі спортсмени,
+//    в іншому – список тих, хто був вибраний.
+//    При натисканні на зелену стрілку спортсмен переміщається у список для змагань.
+//     При натисканні на червону стрілку спортсмен переміщається у загальний список.
+
 const buttonsWrapper = document.querySelector(".main__tasks");
 const wrapperResult = document.querySelector(".main__wrapper-result");
+//task 6
+let players = [
+	{
+		name: "Ivan",
+		surname: "Butulka"
+	},
+	{
+		name: "Petro",
+		surname: "Black"
+	},
+	{
+		name: "John",
+		surname: "White"
+	},
+	{
+		name: "Olga",
+		surname: "Plama"
+	},
+	{
+		name: "Kola",
+		surname: "Coca"
+	},
+	{
+		name: "Pepsi",
+		surname: "Pups"
+	}
+];
+class Player {
+	static linkRedArrow = "../img/red-arrow.svg";
+	static linkGreenArrow = "../img/green-arrow.svg";
+	constructor(name, surname) {
+		this.greenArrowLink = Player.linkGreenArrow;
+		this.redArrowLink = Player.linkRedArrow;
+		this.name = name;
+		this.surname = surname;
+		this.el = this.render();
+	}
+	createName() {
+		const namePlayer = document.createElement("h2");
+		namePlayer.innerText = `${this.name} ${this.surname}`;
+		return namePlayer;
+	}
+	onclick() {
+		const event = new CustomEvent("eventArrow", {
+			detail: {
+				player: this.el,
+				greenArrow: this.greenArrowLink,
+				redArrow: this.redArrowLink,
+				name: this.name,
+				surname: this.surname,
+				positionEvent: this.arrow.getAttribute("src") === this.greenArrowLink ? "left" : "right"
+			},
+			bubbles: true
+		});
+		this.el.dispatchEvent(event);
+	}
+	createArrow() {
+		const arrowWrapper = document.createElement("button");
+		this.arrow = document.createElement("img");
+		this.arrow.addEventListener("click", this.onclick.bind(this));
+		arrowWrapper.append(this.arrow);
+		this.arrow.setAttribute("src", this.greenArrowLink);
+		return arrowWrapper;
+	}
+	render() {
+		const container = document.createElement("div");
+		container.classList.add("player");
+		container.append(this.createName(), this.createArrow());
+		return container;
+	}
+}
+class StockPlayers {
+	constructor(listPlayers) {
+		this.players = listPlayers;
+		this.el = this.render();
+	}
+	render() {
+		const wrap = document.createElement("div");
+		wrap.classList.add("stock-players");
+		const title = document.createElement("h2");
+		title.innerText = "Загальний список";
+		wrap.append(title);
+		for (const play of this.players) {
+			let player = new Player(play.name, play.surname);
+			wrap.append(player.el);
+		}
+		return wrap;
+	}
+}
+class CheckedPlayerStock {
+	constructor() {
+		this.el = this.render();
+	}
+	render() {
+		const rightStock = document.createElement("div");
+		const title = document.createElement("h2");
+		title.innerText = "Обранні для змагання";
+		rightStock.append(title);
+		return rightStock;
+	}
+}
+class ManagerPlayers {
+	constructor(players) {
+		this.players = players;
+		this.el = this.render();
+	}
+	render() {
+		const manager = document.createElement("div");
+		manager.addEventListener("eventArrow", (event) => {
+			const { player, greenArrow, redArrow, name, surname, positionEvent } = event.detail;
+			const copyPlayer = new Player(name, surname);
+			const el = copyPlayer.el;
+			player.remove();
+			if (positionEvent === "left") {
+				copyPlayer.arrow.classList.add("rotate-arrow");
+				copyPlayer.arrow.setAttribute("src", redArrow);
+				manager.lastChild.append(el);
+			} else {
+				copyPlayer.arrow.classList.remove("rotate-arrow");
+				copyPlayer.arrow.setAttribute("src", greenArrow);
+				manager.firstChild.append(el);
+			}
+		});
+		manager.classList.add("manager");
+		const leftStock = new StockPlayers(this.players);
+		const rightStock = new CheckedPlayerStock();
+		manager.append(leftStock.el, rightStock.el);
+		return manager;
+	}
+}
 //task 5
 class Flower {
 	constructor(span, image, title, price) {
@@ -117,7 +254,7 @@ buttonsWrapper.addEventListener("click", (event) => {
 	}
 	//task5
 	else if (el.classList.contains("main__task-5")) {
-		for (let i = 0; i < 4; i++) {
+		for (let i = 0; i < flowers.length; i++) {
 			const cardProduct = document.createElement("div");
 			cardProduct.classList.add("card-task-5");
 			const span = document.createElement("span");
@@ -137,6 +274,11 @@ buttonsWrapper.addEventListener("click", (event) => {
 			wrap.append(cardProduct);
 			wrap.classList.add("wrap-task-5");
 		}
+	}
+	//task6
+	else if (el.classList.contains("main__task-6")) {
+		const manager = new ManagerPlayers(players);
+		wrap.append(manager.el);
 	}
 });
 //task 5
