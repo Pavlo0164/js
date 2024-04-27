@@ -2,23 +2,28 @@ const main = document.querySelector(".main");
 
 class TaskManager {
 	constructor() {
+		this.data = [];
 		this.el = this.render();
 	}
 	eventSentTask(event) {
-		const { inputText, inputPriority } = event.detail;
-		const task = new Task(inputText, inputPriority);
-		task.el.setAttribute("prior", inputPriority);
-		this.wrapStockTask.append(task.el);
-		this.sort();
+		this.data.push(event.detail);
+		this.onchange(event);
 	}
-	sort() {}
+
 	onchange(event) {
-		
-		
+		const newWrapStock = document.createElement("div");
+		if (event.target.value === "increase") {
+			this.data.sort((a, b) => parseInt(a.inputPriority) - parseInt(b.inputPriority));
+		} else this.data.sort((a, b) => parseInt(b.inputPriority) - parseInt(a.inputPriority));
+		this.data.forEach((item) => {
+			const task = new Task(item.inputText, item.inputPriority, item.id);
+			newWrapStock.append(task.el);
+		});
+		this.wrapStockTask.replaceWith(newWrapStock);
+		this.wrapStockTask = newWrapStock;
 	}
 	createSelect() {
 		const select = document.createElement("select");
-		this.select = select;
 		select.addEventListener("change", this.onchange.bind(this));
 		const option1 = document.createElement("option");
 		const option2 = document.createElement("option");
@@ -37,30 +42,40 @@ class TaskManager {
 		wrap.append(title, this.createSelect());
 		return wrap;
 	}
+	deleteTask(event) {
+		this.data.forEach((item, index) => {
+			if (parseInt(event.detail.id) === item.id) this.data.splice(index, 1);
+		});
+	}
 	render() {
 		const manager = document.createElement("div");
 		manager.classList.add("manager");
-
+		manager.addEventListener("deleteTask", (event) => this.deleteTask(event));
 		const addTask = new AddTask();
-
 		const stockTasks = document.createElement("div");
-
+		stockTasks.classList.add("stock-tasks");
 		this.wrapStockTask = document.createElement("div");
 		stockTasks.append(this.createSort(), this.wrapStockTask);
-
 		manager.addEventListener("sentTask", this.eventSentTask.bind(this));
-
 		manager.append(addTask.el, stockTasks);
 		return manager;
 	}
 }
 class Task {
-	constructor(text, number) {
+	constructor(text, number, id) {
 		this.text = text;
 		this.number = number;
+		this.id = id;
 		this.el = this.render();
 	}
-	onclick() {
+	onclick(event) {
+		const delTask = new CustomEvent("deleteTask", {
+			detail: {
+				id: this.id
+			},
+			bubbles: true
+		});
+		this.el.dispatchEvent(delTask);
 		this.el.remove();
 	}
 	render() {
@@ -106,12 +121,12 @@ class AddTask {
 			const eventSent = new CustomEvent("sentTask", {
 				detail: {
 					inputText: this.inputText.value,
-					inputPriority: this.inputPriority.value
+					inputPriority: this.inputPriority.value,
+					id: 55555 + Math.floor(Math.random() * 888888)
 				},
 				bubbles: true
 			});
 			this.el.dispatchEvent(eventSent);
-			console.log(true);
 		}
 	}
 	createButton() {

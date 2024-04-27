@@ -251,9 +251,6 @@ li {
 	}
 }
 .add-task {
-	display: flex;
-	flex-direction: column;
-	gap: 30px;
 	& h2 {
 		text-align: center;
 	}
@@ -283,6 +280,15 @@ li {
 		&:active {
 			background-color: transparent;
 		}
+	}
+}
+.stock-tasks {
+	display: flex;
+	gap: 20px;
+	& > div:last-child {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
 	}
 }
 .task {
