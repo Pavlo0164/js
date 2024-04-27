@@ -9,7 +9,6 @@ class TaskManager {
 		this.data.push(event.detail);
 		this.onchange(event);
 	}
-
 	onchange(event) {
 		const newWrapStock = document.createElement("div");
 		if (event.target.value === "increase") {
@@ -47,17 +46,20 @@ class TaskManager {
 			if (parseInt(event.detail.id) === item.id) this.data.splice(index, 1);
 		});
 	}
+
 	render() {
 		const manager = document.createElement("div");
 		manager.classList.add("manager");
 		manager.addEventListener("deleteTask", (event) => this.deleteTask(event));
-		const addTask = new AddTask();
+
 		const stockTasks = document.createElement("div");
 		stockTasks.classList.add("stock-tasks");
+
 		this.wrapStockTask = document.createElement("div");
 		stockTasks.append(this.createSort(), this.wrapStockTask);
+
 		manager.addEventListener("sentTask", this.eventSentTask.bind(this));
-		manager.append(addTask.el, stockTasks);
+		manager.append(new AddTask().el, stockTasks);
 		return manager;
 	}
 }
@@ -68,7 +70,7 @@ class Task {
 		this.id = id;
 		this.el = this.render();
 	}
-	onclick(event) {
+	onclick() {
 		const delTask = new CustomEvent("deleteTask", {
 			detail: {
 				id: this.id
@@ -78,16 +80,21 @@ class Task {
 		this.el.dispatchEvent(delTask);
 		this.el.remove();
 	}
-	render() {
-		const task = document.createElement("div");
-		task.classList.add("task");
+	createTitle() {
 		const title = document.createElement("div");
 		title.innerText = `${this.text} - ${this.number}`;
-
+		return title;
+	}
+	createButton() {
 		const button = document.createElement("button");
 		button.addEventListener("click", this.onclick.bind(this));
 		button.innerText = "Delete";
-		task.append(title, button);
+		return button;
+	}
+	render() {
+		const task = document.createElement("div");
+		task.classList.add("task");
+		task.append(this.createTitle(), this.createButton());
 		return task;
 	}
 }
@@ -144,6 +151,4 @@ class AddTask {
 	}
 }
 const taskManager = new TaskManager();
-// const task = new Task("Нагодувати собаку", 20);
-
 main.append(taskManager.el);
