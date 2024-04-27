@@ -14,10 +14,12 @@ class TaskManager {
 		if (event.target.value === "increase") {
 			this.data.sort((a, b) => parseInt(a.inputPriority) - parseInt(b.inputPriority));
 		} else this.data.sort((a, b) => parseInt(b.inputPriority) - parseInt(a.inputPriority));
+
 		this.data.forEach((item) => {
 			const task = new Task(item.inputText, item.inputPriority, item.id);
 			newWrapStock.append(task.el);
 		});
+
 		this.wrapStockTask.replaceWith(newWrapStock);
 		this.wrapStockTask = newWrapStock;
 	}
@@ -80,10 +82,20 @@ class Task {
 		this.el.dispatchEvent(delTask);
 		this.el.remove();
 	}
+	createCheckBox() {
+		const checkBox = document.createElement("input");
+		checkBox.classList.add("checkbox");
+		checkBox.type = "checkbox";
+		checkBox.addEventListener("change", (event) => {
+			if (event.target.checked) this.title.style.textDecoration = "line-through";
+			else this.title.style.textDecoration = "none";
+		});
+		return checkBox;
+	}
 	createTitle() {
-		const title = document.createElement("div");
-		title.innerText = `${this.text} - ${this.number}`;
-		return title;
+		this.title = document.createElement("div");
+		this.title.innerText = `${this.text} - ${this.number}`;
+		return this.title;
 	}
 	createButton() {
 		const button = document.createElement("button");
@@ -94,7 +106,7 @@ class Task {
 	render() {
 		const task = document.createElement("div");
 		task.classList.add("task");
-		task.append(this.createTitle(), this.createButton());
+		task.append(this.createCheckBox(), this.createTitle(), this.createButton());
 		return task;
 	}
 }
@@ -134,6 +146,8 @@ class AddTask {
 				bubbles: true
 			});
 			this.el.dispatchEvent(eventSent);
+			this.inputText.value = "";
+			this.inputPriority.value = "";
 		}
 	}
 	createButton() {
