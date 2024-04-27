@@ -145,11 +145,11 @@ class ManagerPlayers {
 			copyPlayer.arrow.classList.add("rotate-arrow");
 			copyPlayer.arrow.setAttribute("src", redArrow);
 			manager.lastChild.append(el);
-		} else {
-			copyPlayer.arrow.classList.remove("rotate-arrow");
-			copyPlayer.arrow.setAttribute("src", greenArrow);
-			manager.firstChild.append(el);
+			return;
 		}
+		copyPlayer.arrow.classList.remove("rotate-arrow");
+		copyPlayer.arrow.setAttribute("src", greenArrow);
+		manager.firstChild.append(el);
 	}
 	render() {
 		const manager = document.createElement("div");
@@ -346,49 +346,45 @@ buttonsWrapper.addEventListener("click", (event) => {
 //task 5
 wrapperResult.addEventListener("click", (event) => {
 	const clickEl = event.target;
-	if (clickEl.closest(".card-task-5")) {
-		const card = clickEl.closest(".card-task-5");
-		card.classList.toggle("active-task-5");
-		let cards = card.parentElement.children;
-		for (const item of cards) {
-			if (item !== card) item.classList.remove("active-task-5");
-		}
+	if (!clickEl.closest(".card-task-5")) return;
+	const card = clickEl.closest(".card-task-5");
+	card.classList.toggle("active-task-5");
+	let cards = card.parentElement.children;
+	for (const item of cards) {
+		if (item !== card) item.classList.remove("active-task-5");
 	}
 });
 //task 4
 wrapperResult.addEventListener("click", (event) => {
 	const clickEl = event.target;
-	if (clickEl.classList.contains("td-task-4")) {
-		const parentTable = clickEl.closest("table");
-		if (parentTable !== null) {
-			let prevValueAtr = parseInt(parentTable.getAttribute("counter"));
-			parentTable.setAttribute("counter", `${prevValueAtr + 1}`);
-			parentTable.previousElementSibling.innerText = `Counter click on the table: ${prevValueAtr + 1}`;
-			parentTable.style.outline = "2px solid red";
-			let copyParentTable = parentTable;
-			let copyParentTable2 = parentTable;
-			while (copyParentTable.previousElementSibling !== null) {
-				copyParentTable = copyParentTable.previousElementSibling;
-				copyParentTable.style.outline = "none";
-			}
-			while (copyParentTable2.nextElementSibling !== null) {
-				copyParentTable2 = copyParentTable2.nextElementSibling;
-				copyParentTable2.style.outline = "none";
-			}
-		}
+	if (!clickEl.classList.contains("td-task-4")) return;
+	const parentTable = clickEl.closest("table");
+	if (parentTable == null) return;
+	let prevValueAtr = parseInt(parentTable.getAttribute("counter"));
+	parentTable.setAttribute("counter", `${prevValueAtr + 1}`);
+	parentTable.previousElementSibling.innerText = `Counter click on the table: ${prevValueAtr + 1}`;
+	parentTable.style.outline = "2px solid red";
+	let copyParentTable = parentTable;
+	let copyParentTable2 = parentTable;
+	while (copyParentTable.previousElementSibling !== null) {
+		copyParentTable = copyParentTable.previousElementSibling;
+		copyParentTable.style.outline = "none";
+	}
+	while (copyParentTable2.nextElementSibling !== null) {
+		copyParentTable2 = copyParentTable2.nextElementSibling;
+		copyParentTable2.style.outline = "none";
 	}
 });
 //task 3
 wrapperResult.addEventListener("click", (event) => {
 	const clickElem = event.target;
-	if (clickElem.classList.contains("button-task-3")) {
-		const olLists = document.querySelectorAll("ol");
-		for (const olList of olLists) {
-			const liElements = olList.children;
-			for (const li of liElements) {
-				if (liElements.length % 2 === 0) li.style.background = "green";
-				else li.style.background = "red";
-			}
+	if (!clickElem.classList.contains("button-task-3")) return;
+	const olLists = document.querySelectorAll("ol");
+	for (const olList of olLists) {
+		const liElements = olList.children;
+		for (const li of liElements) {
+			if (liElements.length % 2 === 0) li.style.background = "green";
+			else li.style.background = "red";
 		}
 	}
 });
@@ -397,41 +393,38 @@ wrapperResult.addEventListener("focusin", (event) => {
 	const elem = event.target;
 	elem.addEventListener("input", (e) => {
 		const el = e.target;
-		if (el.classList.contains("input-task-2")) {
-			const parentLabel = el.parentElement;
-			if (el.value) {
-				let inputValue1 = parseInt(el.value);
-				let inputValue2 = parseInt(el.value);
-				let prevEl = parentLabel.previousElementSibling;
-				let nextEl = parentLabel.nextElementSibling;
-				while (prevEl !== null) {
-					prevEl.firstElementChild.value = inputValue1 - 1;
-					inputValue1--;
-					prevEl = prevEl.previousElementSibling;
-				}
-				while (nextEl !== null) {
-					nextEl.firstElementChild.value = inputValue2 + 1;
-					inputValue2++;
-					nextEl = nextEl.nextElementSibling;
-				}
-			}
+		if (!el.classList.contains("input-task-2")) return;
+		const parentLabel = el.parentElement;
+		if (!el.value) return;
+		let inputValue1 = parseInt(el.value);
+		let inputValue2 = parseInt(el.value);
+		let prevEl = parentLabel.previousElementSibling;
+		let nextEl = parentLabel.nextElementSibling;
+		while (prevEl !== null) {
+			prevEl.firstElementChild.value = inputValue1 - 1;
+			inputValue1--;
+			prevEl = prevEl.previousElementSibling;
+		}
+		while (nextEl !== null) {
+			nextEl.firstElementChild.value = inputValue2 + 1;
+			inputValue2++;
+			nextEl = nextEl.nextElementSibling;
 		}
 	});
 });
 //task 1
 wrapperResult.addEventListener("click", (event) => {
 	const clickElem = event.target;
-	if (clickElem.classList.contains("task-one")) {
-		let currentElem = clickElem;
-		let currentElem2 = clickElem;
+	if (!clickElem.classList.contains("task-one")) return;
+	let currentElem = clickElem;
+	let currentElem2 = clickElem;
+	currentElem.style.color = "red";
+	while (currentElem.nextElementSibling !== null) {
+		currentElem = currentElem.nextElementSibling;
 		currentElem.style.color = "red";
-		while (currentElem.nextElementSibling !== null) {
-			currentElem = currentElem.nextElementSibling;
-			currentElem.style.color = "red";
-		}
-		while (currentElem2.previousElementSibling !== null) {
-			currentElem2 = currentElem2.previousElementSibling;
-			currentElem2.style.color = "black";
-		}
+	}
+	while (currentElem2.previousElementSibling !== null) {
+		currentElem2 = currentElem2.previousElementSibling;
+		currentElem2.style.color = "black";
 	}
 });

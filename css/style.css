@@ -526,3 +526,113 @@ li {
   -o-object-position: center;
      object-position: center;
 }
+
+.manager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+.manager > div {
+  margin: 20px;
+  padding: 30px;
+  border: 2px solid black;
+  border-radius: 20px;
+}
+
+.add-task {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 30px;
+}
+.add-task h2 {
+  text-align: center;
+}
+.add-task label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.add-task input {
+  border-radius: 20px;
+  width: 400px;
+  border: 1px solid gray;
+  padding: 10px;
+  background-color: white;
+}
+.add-task button {
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 20px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+@media (any-hover: hover) {
+  .add-task button:hover {
+    background-color: #f7c7c7;
+  }
+}
+.add-task button:active {
+  background-color: transparent;
+}
+
+.task {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+}
+.task button {
+  border-radius: 20px;
+  border: 2px solid black;
+  padding: 10px 40px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+@media (any-hover: hover) {
+  .task button:hover {
+    background-color: #f7c7c7;
+  }
+}
+.task button:active {
+  background-color: transparent;
+}
+
+.sort {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.sort select {
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 20px;
+}
