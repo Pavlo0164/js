@@ -200,6 +200,8 @@ li {
 .stock-players {
 	border: 2px solid black;
 }
+
+//----------------------------------------------------
 .manager {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -237,40 +239,53 @@ li {
 		object-position: center;
 	}
 }
-.manager {
+
+////----------------------------------------------------------
+.managers {
+	font-size: 22px;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 50px;
+	max-width: 600px;
+	grid-template-columns: 1fr;
+
+	gap: 30px;
 	align-items: flex-start;
 
 	& > div {
-		margin: 20px;
-		padding: 30px;
+		margin: 10px;
+		padding: 10px;
 		border: 2px solid black;
 		border-radius: 20px;
 	}
 }
 .add-task {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 	& h2 {
 		text-align: center;
+		font-size: 30px;
 	}
 	& label {
 		display: flex;
 		gap: 20px;
 		align-items: center;
 		justify-content: space-between;
+		@media (max-width: 700px) {
+			flex-direction: column;
+			gap: 10px;
+		}
 	}
 	& input {
 		border-radius: 20px;
-		width: 400px;
+		max-width: 400px;
 		border: 1px solid gray;
-		padding: 10px;
+		padding: 5px 10px;
 		background-color: white;
 	}
 	& button {
 		border: 2px solid black;
 		border-radius: 20px;
-		padding: 20px;
+		padding: 5px 10px;
 		transition: all 0.3s ease;
 		@media (any-hover: hover) {
 			&:hover {
@@ -284,7 +299,13 @@ li {
 }
 .stock-tasks {
 	display: flex;
+	flex-direction: column;
 	gap: 20px;
+
+	& > div:first-child {
+		display: flex;
+		justify-content: space-between;
+	}
 	& > div:last-child {
 		display: flex;
 		flex-direction: column;
@@ -295,13 +316,13 @@ li {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 20px;
+	padding: 5px;
 	border: 2px solid black;
 	border-radius: 20px;
 	& button {
 		border-radius: 20px;
 		border: 2px solid black;
-		padding: 10px 40px;
+		padding: 5px 30px;
 		transition: all 0.3s ease;
 		@media (any-hover: hover) {
 			&:hover {

@@ -51,7 +51,7 @@ class TaskManager {
 
 	render() {
 		const manager = document.createElement("div");
-		manager.classList.add("manager");
+		manager.classList.add("managers");
 		manager.addEventListener("deleteTask", (event) => this.deleteTask(event));
 
 		const stockTasks = document.createElement("div");

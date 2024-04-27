@@ -527,23 +527,36 @@ li {
      object-position: center;
 }
 
-.manager {
+.managers {
+  font-size: 22px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
+  max-width: 600px;
+  grid-template-columns: 1fr;
+  gap: 30px;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
 }
-.manager > div {
-  margin: 20px;
-  padding: 30px;
+.managers > div {
+  margin: 10px;
+  padding: 10px;
   border: 2px solid black;
   border-radius: 20px;
 }
 
+.add-task {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+}
 .add-task h2 {
   text-align: center;
+  font-size: 30px;
 }
 .add-task label {
   display: -webkit-box;
@@ -557,17 +570,26 @@ li {
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
+@media (max-width: 700px) {
+  .add-task label {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 10px;
+  }
+}
 .add-task input {
   border-radius: 20px;
-  width: 400px;
+  max-width: 400px;
   border: 1px solid gray;
-  padding: 10px;
+  padding: 5px 10px;
   background-color: white;
 }
 .add-task button {
   border: 2px solid black;
   border-radius: 20px;
-  padding: 20px;
+  padding: 5px 10px;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
@@ -584,7 +606,19 @@ li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 20px;
+}
+.stock-tasks > div:first-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .stock-tasks > div:last-child {
   display: -webkit-box;
@@ -607,14 +641,14 @@ li {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 20px;
+  padding: 5px;
   border: 2px solid black;
   border-radius: 20px;
 }
 .task button {
   border-radius: 20px;
   border: 2px solid black;
-  padding: 10px 40px;
+  padding: 5px 30px;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
