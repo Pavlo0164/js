@@ -94,6 +94,7 @@ class Task {
 	}
 	createTitle() {
 		this.title = document.createElement("div");
+		this.title.classList.add('title-task')
 		this.title.innerText = `${this.text} - ${this.number}`;
 		return this.title;
 	}

@@ -241,12 +241,15 @@ li {
 }
 
 ////----------------------------------------------------------
+///
+.wrapper.wrapper-manager {
+	background-color: white;
+}
 .managers {
 	font-size: 22px;
 	display: grid;
 	max-width: 600px;
 	grid-template-columns: 1fr;
-
 	gap: 30px;
 	align-items: flex-start;
 
@@ -300,7 +303,6 @@ li {
 .stock-tasks {
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
 
 	& > div:first-child {
 		display: flex;
@@ -314,15 +316,18 @@ li {
 }
 .task {
 	display: flex;
-	justify-content: space-between;
+	gap: 10px;
 	align-items: center;
-	padding: 5px;
+	padding: 10px;
 	border: 2px solid black;
 	border-radius: 20px;
 	& button {
-		border-radius: 20px;
-		border: 2px solid black;
-		padding: 5px 30px;
+		line-height: 100%;
+		border-radius: 10px;
+		border: 1px solid black;
+		padding: 5px 10px;
+		font-size: 16px;
+		text-transform: lowercase;
 		transition: all 0.3s ease;
 		@media (any-hover: hover) {
 			&:hover {
@@ -334,7 +339,9 @@ li {
 		}
 	}
 }
-
+.title-task {
+	flex: 1 1 auto;
+}
 .sort {
 	display: flex;
 	justify-content: space-between;
