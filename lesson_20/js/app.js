@@ -7,7 +7,9 @@ class TaskManager {
 	}
 	eventSentTask(event) {
 		this.data.push(event.detail);
+		
 		this.onchange(event);
+
 	}
 	onchange(event) {
 		const newWrapStock = document.createElement("div");
@@ -22,6 +24,10 @@ class TaskManager {
 
 		this.wrapStockTask.replaceWith(newWrapStock);
 		this.wrapStockTask = newWrapStock;
+
+
+
+
 	}
 	createSelect() {
 		const select = document.createElement("select");

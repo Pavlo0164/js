@@ -4,6 +4,7 @@
 @import "../lesson_18/tasks/task-2/scss/task-2";
 @import "../lesson_18/tasks/task-3/scss/task-3";
 .wrapper {
+	background-color: white;
 	display: flex;
 	flex-direction: column;
 	font-size: 33px;
@@ -36,12 +37,6 @@
 			}
 		}
 	}
-
-	&__lesson-one {
-	}
-
-	&__lesson-two {
-	}
 }
 
 .work {
@@ -55,10 +50,7 @@
 	background-color: #756d6d;
 	padding: 10px;
 }
-.wrapper {
-}
-.header {
-}
+
 .main {
 	padding: 20px;
 	&__tasks {
@@ -200,7 +192,6 @@ li {
 .stock-players {
 	border: 2px solid black;
 }
-
 //----------------------------------------------------
 .manager {
 	display: grid;
@@ -356,3 +347,16 @@ li {
 	width: 20px;
 	height: 20px;
 }
+.search-wrapper {
+	& input {
+		border: 1px solid black;
+		width: 400px;
+	}
+}
+.result-serch-person {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+///-------------------------------------------+-------------------

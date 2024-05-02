@@ -245,6 +245,7 @@ h6 {
 }
 
 .wrapper {
+  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -292,6 +293,7 @@ h6 {
     color: #fff;
   }
 }
+
 .work {
   background-color: red;
 }
@@ -691,4 +693,20 @@ li {
 .checkbox {
   width: 20px;
   height: 20px;
+}
+
+.search-wrapper input {
+  border: 1px solid black;
+  width: 400px;
+}
+
+.result-serch-person {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
 }
