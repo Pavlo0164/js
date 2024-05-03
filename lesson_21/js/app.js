@@ -200,14 +200,17 @@ class Bank extends CreateElement {
 		this.goldClients = [];
 		this.el = this.render();
 	}
+	//реєстрація простих користувачів
 	registerNewCommonClient(name, surname, pin) {
 		this.commonClients.push(new Client(name, surname, pin));
 		return true;
 	}
+	//реєстрація голд користувачів
 	registerNewGoldClient(name, surname, pin, limit = 1000, percent = 3) {
 		this.goldClients.push(new GoldenClient(name, surname, pin, limit, percent));
 		return true;
 	}
+	//генерація форми для звичайних користувачів
 	createCommonForm() {
 		const commonForm = this.createElem("form", "bank__form");
 		const title = this.createElem("h3", "bank__register-title", "Registration", null, commonForm);
@@ -225,7 +228,7 @@ class Bank extends CreateElement {
 		this.inputPin = this.createElem("input", "bank__input", null, { type: "number", name: "pin" }, labelPin);
 		return commonForm;
 	}
-
+	//генерація форми для золотих користувачів
 	createGoldForm() {
 		const form = this.createCommonForm();
 		const labelLimit = this.createElem("label", "bank__label", "Client limit credit cash", { for: "credit" }, form);
@@ -240,9 +243,11 @@ class Bank extends CreateElement {
 		);
 		return form;
 	}
+	//результат реєстрації
 	result() {
 		alert("The client is registered successfully");
 	}
+	//кнопка реєстрації користувачів та функціонал реєстрації
 	addSubmitButton(form) {
 		const button = this.createElem("button", "bank__button-submit", "Register", null, form);
 		button.addEventListener("click", (event) => {
@@ -275,17 +280,16 @@ class Bank extends CreateElement {
 		});
 		return form;
 	}
+	//видалення форми реєстрації з розмітки перед вставленням іншої
 	resetWrapForm(container) {
 		if (container.firstElementChild) container.firstElementChild.remove();
 	}
+	//зміна показу форми для реєстрації
 	eventAdd(form) {
 		this.resetWrapForm(this.formContainer);
 		this.formContainer.append(form);
 	}
-	createForm() {
-		this.commonForm = this.addSubmitButton(this.createCommonForm());
-		this.goldForm = this.addSubmitButton(this.createGoldForm());
-	}
+	//кнопка переходу до форми для реєстрації простих клієнтів
 	createButtonCommon() {
 		const button = this.createElem(
 			"button",
@@ -295,11 +299,13 @@ class Bank extends CreateElement {
 		button.addEventListener("click", () => this.eventAdd(this.commonForm));
 		return button;
 	}
+	//кнопка переходу до форми для реєстрації золотих клієнтів
 	createButtonGold() {
 		const button = this.createElem("button", ["bank__button-add-gold", "button-nav"], "register gold");
 		button.addEventListener("click", () => this.eventAdd(this.goldForm));
 		return button;
 	}
+	//генерація та рендер блоку з простими або золотими клієнтами
 	eventShowCommonClients(clients) {
 		this.resetWrapForm(this.resultContainer);
 		const client = this.createElem("div", null, null, null, this.resultContainer);
@@ -316,6 +322,7 @@ class Bank extends CreateElement {
 			client.append(el);
 		});
 	}
+	//створення кнопки длі показу всіх звичайних клієнтів
 	createButtonShowCommonClient() {
 		const button = this.createElem(
 			"button",
@@ -325,7 +332,7 @@ class Bank extends CreateElement {
 		button.addEventListener("click", () => this.eventShowCommonClients(this.commonClients));
 		return button;
 	}
-
+	//створення кнопки для показу всіх золотих клієнтів
 	createButtonShowGoldClient() {
 		const button = this.createElem(
 			"button",
@@ -335,6 +342,7 @@ class Bank extends CreateElement {
 		button.addEventListener("click", () => this.eventShowCommonClients(this.goldClients));
 		return button;
 	}
+	//функціонал операцій з готівкою
 	funcChangeCash(event, common, gold, flag) {
 		const parentEl = event.target.closest(".bank__show-client");
 		const money = parentEl.querySelector(".bank__input-money-cash");
@@ -359,12 +367,14 @@ class Bank extends CreateElement {
 			}
 		}
 	}
+	//закриття форми для операцій з готівкою
 	buttonEventCancel(event) {
 		const miniForm = event.target.closest(".bank__wrap-mini-form");
 		const attr = miniForm.getAttribute("data-type-btn");
 		if (attr == "add") this.wrapButtonAdd.firstElementChild.replaceWith(this.buttonAddCash);
 		else if (attr == "get") this.wrapButtonGet.firstElementChild.replaceWith(this.buttonGetCash);
 	}
+	//рендер форми для операцій з готівкою
 	createMiniForm(classButton, funcEvent, type) {
 		const wrap = this.createElem("div", "bank__wrap-mini-form", null, { "data-type-btn": type });
 		const wrapButton = this.createElem("div", "bank__wrap-button-cancel", null, null, wrap);
@@ -390,14 +400,17 @@ class Bank extends CreateElement {
 		button.addEventListener("click", (event) => funcEvent(event));
 		return wrap;
 	}
+	//відкриття форми для додавання готівки
 	funcAddCashShowForm() {
 		this.wrapButtonGet.firstElementChild.replaceWith(this.buttonGetCash);
 		this.wrapButtonAdd.firstElementChild.replaceWith(this.miniAddForm);
 	}
+	//відкриття форми для зняття готівки
 	funcGetCashShowForm() {
 		this.wrapButtonAdd.firstElementChild.replaceWith(this.buttonAddCash);
 		this.wrapButtonGet.firstElementChild.replaceWith(this.miniGetForm);
 	}
+	//рендер картки для кожного клієнта
 	createClientShow(name, surname, id, cash, limit = null, percent = null) {
 		const wrap = this.createElem("div", "bank__show-client", null, { "data-id": id, "data-type": "common" });
 		const names = this.createElem("h4", "bank__name-client", `Name client: ${name} ${surname}`, null, wrap);
@@ -419,6 +432,7 @@ class Bank extends CreateElement {
 		this.buttonGetCash.addEventListener("click", () => this.funcGetCashShowForm());
 		return wrap;
 	}
+	//івент по головним кнопкам(автивна кнопка)
 	bankEvent(event, bank, classContains, activeClass) {
 		if (event.target.classList.contains(classContains)) {
 			const buttonsNav = bank.querySelectorAll(`.${classContains}`);
@@ -426,6 +440,7 @@ class Bank extends CreateElement {
 			event.target.classList.add(activeClass);
 		}
 	}
+	//рендер форм операцій з готівкою
 	generateMiniForms() {
 		this.miniAddForm = this.createMiniForm(
 			"bank__button-add-cash",
@@ -438,26 +453,40 @@ class Bank extends CreateElement {
 			"get"
 		);
 	}
+	//рендер обох форм реєстрації
+	createForm() {
+		this.commonForm = this.addSubmitButton(this.createCommonForm());
+		this.goldForm = this.addSubmitButton(this.createGoldForm());
+	}
 	render() {
+		//банкшп
 		const bank = this.createElem("div", "bank");
+		//події по кнопкам навігації
 		bank.addEventListener("click", (event) => this.bankEvent(event, bank, "button-nav", "active-btn"));
 		bank.addEventListener("click", (event) => this.bankEvent(event, bank, "button-nav-result", "active-btn-result"));
-
+		//головний загаловок
 		const title = this.createElem("h1", "bank__title", "Admin, welcome at the bank", null, bank);
-		const wrapForm = this.createElem("div", "bank__wrap-form");
+		//контейнери для форм та показу клієнтів
 		this.formContainer = this.createElem("div", "bank__form-container", null, null, wrapForm);
 		this.resultContainer = this.createElem("div", "bank__result-container", null, null, wrapForm);
+		//генерація форм реєстрації
 		this.createForm();
+		//генерація форм дій з готівкою
 		this.generateMiniForms();
-		this.eventShowCommonClients(this.commonClients);
+		//вставка форми за замовч
 		this.formContainer.append(this.commonForm);
+		//вставка показу клієнтів за замовч
+		this.eventShowCommonClients(this.commonClients);
+
+		//додавання головних кнопок на сторінку
 		bank.append(
 			this.createButtonCommon(),
 			this.createButtonGold(),
 			this.createButtonShowCommonClient(),
-			this.createButtonShowGoldClient(),
-			wrapForm
+			this.createButtonShowGoldClient()
 		);
+		//контейнер для форм та показу клієнтів
+		const wrapForm = this.createElem("div", "bank__wrap-form", null, null, bank);
 		return bank;
 	}
 }
