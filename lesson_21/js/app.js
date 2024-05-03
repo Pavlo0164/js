@@ -466,17 +466,10 @@ class Bank extends CreateElement {
 		bank.addEventListener("click", (event) => this.bankEvent(event, bank, "button-nav-result", "active-btn-result"));
 		//головний загаловок
 		const title = this.createElem("h1", "bank__title", "Admin, welcome at the bank", null, bank);
-		//контейнери для форм та показу клієнтів
-		this.formContainer = this.createElem("div", "bank__form-container", null, null, wrapForm);
-		this.resultContainer = this.createElem("div", "bank__result-container", null, null, wrapForm);
 		//генерація форм реєстрації
 		this.createForm();
 		//генерація форм дій з готівкою
 		this.generateMiniForms();
-		//вставка форми за замовч
-		this.formContainer.append(this.commonForm);
-		//вставка показу клієнтів за замовч
-		this.eventShowCommonClients(this.commonClients);
 
 		//додавання головних кнопок на сторінку
 		bank.append(
@@ -487,6 +480,13 @@ class Bank extends CreateElement {
 		);
 		//контейнер для форм та показу клієнтів
 		const wrapForm = this.createElem("div", "bank__wrap-form", null, null, bank);
+		//контейнери для форм та показу клієнтів
+		this.formContainer = this.createElem("div", "bank__form-container", null, null, wrapForm);
+		this.resultContainer = this.createElem("div", "bank__result-container", null, null, wrapForm);
+		//вставка форми за замовч
+		this.formContainer.append(this.commonForm);
+		//вставка показу клієнтів за замовч
+		this.eventShowCommonClients(this.commonClients);
 		return bank;
 	}
 }
