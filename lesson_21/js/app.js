@@ -233,23 +233,20 @@ class Bank extends CreateElement {
 			if (this.renderString(inputs[1].value, 2)) inputs[1].parentElement.classList.add(classError);
 			else inputs[1].parentElement.classList.add(classSuccess);
 
-
-			if (this.renderString(inputs[2].value, 4, 4)){
-                inputs[2].parentElement.classList.add(classError);
-                 inputs[2].parentElement.classList.add('pin-error');
-            } 
-			else inputs[2].parentElement.classList.add(classSuccess);
+			if (this.renderString(inputs[2].value, 4, 4)) {
+				inputs[2].parentElement.classList.add(classError);
+				inputs[2].parentElement.classList.add("pin-error");
+			} else inputs[2].parentElement.classList.add(classSuccess);
 
 			if (!inputs[3]) return;
 
 			if (this.renderString(inputs[3].value, 2)) inputs[3].parentElement.classList.add(classError);
 			else inputs[3].parentElement.classList.add(classSuccess);
 
-			if (this.renderString(inputs[4].value, 1, 5)){
-                inputs[4].parentElement.classList.add(classError);
-                 inputs[4].parentElement.classList.add('error-lim');
-            } 
-			else inputs[4].parentElement.classList.add(classSuccess);
+			if (this.renderString(inputs[4].value, 1, 5)) {
+				inputs[4].parentElement.classList.add(classError);
+				inputs[4].parentElement.classList.add("error-lim");
+			} else inputs[4].parentElement.classList.add(classSuccess);
 		}
 
 		// const valueInput = event.target.value;
@@ -372,6 +369,14 @@ class Bank extends CreateElement {
 	eventAdd(form) {
 		this.resetWrapForm(this.formContainer);
 		this.formContainer.append(form);
+
+		const wrapInputs = document.querySelectorAll(".bank__wrap-input");
+		for (const wrapInput of wrapInputs) {
+			wrapInput.classList.remove("error-input");
+			wrapInput.classList.remove("success-input");
+			wrapInput.classList.remove("pin-error");
+			wrapInput.classList.remove("error-lim");
+		}
 	}
 	//кнопка переходу до форми для реєстрації простих клієнтів
 	createButtonCommon() {
