@@ -210,37 +210,120 @@ class Bank extends CreateElement {
 		this.goldClients.push(new GoldenClient(name, surname, pin, limit, percent));
 		return true;
 	}
+	renderString(el, min, max = null) {
+		let res;
+		if (max) res = el.length < min || el.length > max;
+		else res = el.length < min;
+		return res;
+	}
+	inputValid(event) {
+		const classError = "error-input";
+		const classSuccess = "success-input";
+		if (event.target.classList.contains("bank__button-submit")) {
+			const wrapInputs = event.target.parentElement.querySelectorAll(".bank__wrap-input");
+			for (const wrapInput of wrapInputs) {
+				wrapInput.classList.remove(classError);
+				wrapInput.classList.remove(classSuccess);
+			}
+			const inputs = event.target.parentElement.querySelectorAll(".bank__input");
+
+			if (this.renderString(inputs[0].value, 2)) inputs[0].parentElement.classList.add(classError);
+			else inputs[0].parentElement.classList.add(classSuccess);
+
+			if (this.renderString(inputs[1].value, 2)) inputs[1].parentElement.classList.add(classError);
+			else inputs[1].parentElement.classList.add(classSuccess);
+
+
+			if (this.renderString(inputs[2].value, 4, 4)){
+                inputs[2].parentElement.classList.add(classError);
+                 inputs[2].parentElement.classList.add('pin-error');
+            } 
+			else inputs[2].parentElement.classList.add(classSuccess);
+
+			if (!inputs[3]) return;
+
+			if (this.renderString(inputs[3].value, 2)) inputs[3].parentElement.classList.add(classError);
+			else inputs[3].parentElement.classList.add(classSuccess);
+
+			if (this.renderString(inputs[4].value, 1, 5)){
+                inputs[4].parentElement.classList.add(classError);
+                 inputs[4].parentElement.classList.add('error-lim');
+            } 
+			else inputs[4].parentElement.classList.add(classSuccess);
+		}
+
+		// const valueInput = event.target.value;
+		// const wrapInput = event.target.closest(".bank__wrap-input");
+		// wrapInput.classList.remove(selector);
+		// wrapInput.classList.remove(selector2);
+		// let res;
+		// if (numMax) res = valueInput.length < numMin || valueInput.length > numMax;
+		// else res = valueInput.length < numMin;
+
+		// if (res) wrapInput.classList.add(selector);
+		// else wrapInput.classList.add(selector2);
+	}
 	//генерація форми для звичайних користувачів
 	createCommonForm() {
 		const commonForm = this.createElem("form", "bank__form");
+		commonForm.addEventListener("click", (event) => this.inputValid(event));
 		const title = this.createElem("h3", "bank__register-title", "Registration", null, commonForm);
 		const labelName = this.createElem("label", "bank__label", "Client name", { for: "name" }, commonForm);
-		this.inputName = this.createElem("input", "bank__input", null, { type: "text", name: "name" }, labelName);
+		const wrapInput = this.createElem("div", "bank__wrap-input", null, null, labelName);
+		this.inputName = this.createElem(
+			"input",
+			"bank__input",
+			null,
+			{ type: "text", id: "name", placeholder: "Enter name" },
+			wrapInput
+		);
+		//this.inputName.addEventListener("blur", (event) => this.inputValid(event, "error-input", "success-input", 2));
 		const labelSurname = this.createElem("label", "bank__label", "Client surname", { for: "surname" }, commonForm);
+		const wrapInput2 = this.createElem("div", "bank__wrap-input", null, null, labelSurname);
 		this.inputSurname = this.createElem(
 			"input",
 			"bank__input",
 			null,
-			{ type: "text", name: "surname" },
-			labelSurname
+			{ type: "text", id: "surname", placeholder: "Enter surname" },
+			wrapInput2
 		);
+		//this.inputSurname.addEventListener("blur", (event) => this.inputValid(event, "error-input", "success-input", 2));
 		const labelPin = this.createElem("label", "bank__label", "Client new pin", { for: "pin" }, commonForm);
-		this.inputPin = this.createElem("input", "bank__input", null, { type: "number", name: "pin" }, labelPin);
+		const wrapInput3 = this.createElem("div", "bank__wrap-input", null, null, labelPin);
+		this.inputPin = this.createElem(
+			"input",
+			"bank__input",
+			null,
+			{ type: "password", id: "pin", placeholder: "Enter pincode" },
+			wrapInput3
+		);
+		//this.inputPin.addEventListener("blur", (event) => this.inputValid(event, "error-input", "success-input", 4, 4));
 		return commonForm;
 	}
 	//генерація форми для золотих користувачів
 	createGoldForm() {
 		const form = this.createCommonForm();
+
 		const labelLimit = this.createElem("label", "bank__label", "Client limit credit cash", { for: "credit" }, form);
-		this.inputLimit = this.createElem("input", "bank__input", null, { type: "number", name: "credit" }, labelLimit);
+		const wrapInput = this.createElem("div", "bank__wrap-input", null, null, labelLimit);
+		this.inputLimit = this.createElem(
+			"input",
+			"bank__input",
+			null,
+			{ type: "number", id: "credit", placeholder: "Enter credit limit" },
+			wrapInput
+		);
+		//this.inputLimit.addEventListener("blur", (event) => this.inputValid(event, "error-input", "success-input", 2));
 		const labelPercent = this.createElem("label", "bank__label", "Client percent", { for: "percent" }, form);
+		const wrapInput1 = this.createElem("div", "bank__wrap-input", null, null, labelPercent);
 		this.inputPercent = this.createElem(
 			"input",
 			"bank__input",
 			null,
-			{ type: "number", name: "percent" },
-			labelPercent
+			{ type: "number", id: "percent", placeholder: "Enter percent" },
+			wrapInput1
 		);
+		//this.inputPin.addEventListener("blur", (event) => this.inputValid(event, "error-input", "success-input", 1));
 		return form;
 	}
 	//результат реєстрації
@@ -249,8 +332,9 @@ class Bank extends CreateElement {
 	}
 	//кнопка реєстрації користувачів та функціонал реєстрації
 	addSubmitButton(form) {
-		const button = this.createElem("button", "bank__button-submit", "Register", null, form);
-		button.addEventListener("click", (event) => {
+		this.button = this.createElem("input", "bank__button-submit", null, { type: "submit", value: "Register" }, form);
+
+		this.button.addEventListener("click", (event) => {
 			event.preventDefault();
 			const form = event.target.closest("form");
 			const inputs = form.querySelectorAll(".bank__input");
@@ -266,8 +350,9 @@ class Bank extends CreateElement {
 					result = this.registerNewGoldClient(name, surname, pin, limit, percent);
 				}
 				if (result) {
-					for (const input of inputs) input.value = "";
-					this.result();
+					setTimeout(() => {
+						for (const input of inputs) input.value = "";
+					}, 2000);
 				}
 			} catch (error) {
 				if (error instanceof WrongName) inputs[0].value = "";
@@ -275,7 +360,6 @@ class Bank extends CreateElement {
 				else if (error instanceof WrongPin) inputs[2].value = "";
 				else if (error instanceof WrongLimit) inputs[3].value = "";
 				else if (error instanceof WrongPercent) inputs[4].value = "";
-				alert(error.message);
 			}
 		});
 		return form;
@@ -459,7 +543,7 @@ class Bank extends CreateElement {
 		this.goldForm = this.addSubmitButton(this.createGoldForm());
 	}
 	render() {
-		//банкшп
+		//банк
 		const bank = this.createElem("div", "bank");
 		//події по кнопкам навігації
 		bank.addEventListener("click", (event) => this.bankEvent(event, bank, "button-nav", "active-btn"));

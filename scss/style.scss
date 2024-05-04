@@ -362,6 +362,9 @@ li {
 
 ///-------------------------------------------+-------------------
 .bank {
+	& input::placeholder {
+		font-size: 16px;
+	}
 	padding: 50px;
 	&__title {
 		font-size: 35px;
@@ -401,15 +404,9 @@ li {
 		padding: 30px;
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
+		gap: 30px;
 	}
-	&__label {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 20px;
-		font-size: 20px;
-	}
+
 	&__result-container {
 		& > div {
 			font-size: 25px;
@@ -434,12 +431,73 @@ li {
 	}
 
 	&__form-container {
+		font-family: sans-serif;
+	}
+	&__label {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 20px;
+		font-size: 20px;
+	}
+	&__wrap-input {
+		position: relative;
+		&.success-input input {
+			border: 1px solid #59e73c;
+			outline: 1px solid #59e73c;
+		}
+
+		&.error-input::after {
+			content: "The field must have at least two characters";
+			position: absolute;
+			font-size: 12px;
+			left: 0;
+			bottom: -40%;
+			color: #e74c3c;
+		}
+		&.pin-error::after {
+			content: "The field must have  four characters";
+		}
+		&.error-lim::after {
+			content: "The field must have min one and max five characters ";
+		}
+		&.success-input::before {
+			background: #59e73c url("../img/icons-check.svg") 0 0 / contain no-repeat;
+		}
+		&.error-input::before,
+		&.success-input::before {
+			content: "";
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			position: absolute;
+			right: 10px;
+			top: 50%;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+
+			margin-top: -10px;
+			color: white;
+		}
+		&.error-input::before {
+			content: "!";
+			background-color: #e74c3c;
+		}
+		&.error-input input {
+			border: 1px solid #e74c3c;
+			outline: 1px solid #e74c3c;
+		}
 	}
 	&__input {
 		width: 300px;
 		border: 1px solid gray;
-		border-radius: 10px;
+		// border-radius: 10px;
 		padding: 5px 10px;
+		&:focus {
+			outline: none;
+		}
 	}
 	&__button-get-cash {
 	}
@@ -452,9 +510,7 @@ li {
 			width: 30px;
 			height: 20px;
 			position: relative;
-			
-			
-			
+
 			&::before,
 			&::after {
 				content: "";
