@@ -894,7 +894,7 @@ body {
   outline: 1px solid #e74c3c;
 }
 .bank__input {
-  max-width: 300px;
+  width: 300px;
   border: 1px solid gray;
   padding: 5px 10px;
 }

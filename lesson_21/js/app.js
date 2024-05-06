@@ -171,11 +171,10 @@ class GoldenClient extends Client {
 	}
 	renderPanny() {
 		const panny = this.definePanny();
-		console.log(panny);
 		if (panny) this.Cash = -panny;
 	}
 	getCash(money) {
-		if (money <= this.Cash || money <= this.Limit) {
+		if (money <= this.Cash + this.Limit) {
 			this.Cash = -money;
 			this.renderPanny();
 			return `You got ${money}$`;
@@ -353,7 +352,7 @@ class Bank extends CreateElement {
 		return button;
 	}
 	//генерація та рендер блоку з простими або золотими клієнтами
-	eventShowCommonClients(clients) {
+	eventShowCommonClients(clients, type) {
 		this.resetWrapForm(this.resultContainer);
 		const client = this.createElem("div", null, null, null, this.resultContainer);
 		if (clients.length === 0) client.innerText = "We don`t have clients in our database";
@@ -364,7 +363,8 @@ class Bank extends CreateElement {
 				item.Id,
 				item.Cash,
 				item.Limit,
-				item.Percent
+				item.Percent,
+				type
 			);
 			client.append(el);
 		});
@@ -376,7 +376,7 @@ class Bank extends CreateElement {
 			["bank__button-show-common-clients", "active-btn-result", "button-nav-result"],
 			"show common clients"
 		);
-		this.buttonCommon.addEventListener("click", () => this.eventShowCommonClients(this.commonClients));
+		this.buttonCommon.addEventListener("click", () => this.eventShowCommonClients(this.commonClients, "common"));
 		return this.buttonCommon;
 	}
 	//створення кнопки для показу всіх золотих клієнтів
@@ -386,7 +386,7 @@ class Bank extends CreateElement {
 			["bank__button-show-gold-clients", "button-nav-result"],
 			"show gold clients"
 		);
-		this.buttonGold.addEventListener("click", () => this.eventShowCommonClients(this.goldClients));
+		this.buttonGold.addEventListener("click", () => this.eventShowCommonClients(this.goldClients, "gold"));
 		return this.buttonGold;
 	}
 
@@ -428,15 +428,14 @@ class Bank extends CreateElement {
 		buttonWrap.firstElementChild.replaceWith(this.miniGetForm.cloneNode(true));
 	}
 	//рендер картки для кожного клієнта
-	createClientShow(name, surname, id, cash, limit = null, percent = null) {
-		const wrap = this.createElem("div", "bank__show-client", null, { "data-id": id, "data-type": "common" });
+	createClientShow(name, surname, id, cash, limit = null, percent = null, type) {
+		const wrap = this.createElem("div", "bank__show-client", null, { "data-id": id, "data-type": type });
 		this.createElem("h4", "bank__name-client", `Name client: ${name} ${surname}`, null, wrap);
 		this.createElem("p", "bank__id-client", `Id client: ${id}`, null, wrap);
 		this.createElem("p", "bank__cash-client", `Amount money client: ${cash}$`, null, wrap);
 		let lim = null;
 		let perc = null;
-		if (limit)
-			lim = this.createElem("p", "bank__limit", `Credit limit client: ${limit}$`, { "data-type": "gold" }, wrap);
+		if (limit) lim = this.createElem("p", "bank__limit", `Credit limit client: ${limit}$`, null, wrap);
 		if (percent) perc = this.createElem("p", "bank__percent", `Credit percent client: ${percent}%`, null, wrap);
 
 		const wrapButtonAdd = this.createElem("div", "bank__wrap-button", null, null, wrap);
@@ -459,8 +458,8 @@ class Bank extends CreateElement {
 			const miniForm = el.closest(".bank__wrap-mini-form");
 			const attr = miniForm.getAttribute("data-type-btn");
 			const buttonWrap = event.target.closest(".bank__wrap-button");
-			if (attr == "add") buttonWrap.firstElementChild.replaceWith(this.buttonAddCash.cloneNode(true));
-			else if (attr == "get") buttonWrap.firstElementChild.replaceWith(this.buttonGetCash.cloneNode(true));
+			if (attr === "add") buttonWrap.firstElementChild.replaceWith(this.buttonAddCash.cloneNode(true));
+			else if (attr === "get") buttonWrap.firstElementChild.replaceWith(this.buttonGetCash.cloneNode(true));
 		}
 		let buttonWrap;
 		if (el.classList.contains("bank__add-cash-client")) {
@@ -538,9 +537,11 @@ class Bank extends CreateElement {
 		const pin = parentEl.querySelector(".bank__input-pin-cash");
 		const id = parentEl.getAttribute("data-id");
 		const type = parentEl.getAttribute("data-type");
+
 		let elemInDatabase;
-		if (type == "common") elemInDatabase = common.find((item) => item.Id === id);
-		else if (type == "gold") elemInDatabase = gold.find((item) => item.Id === id);
+		if (type === "common") elemInDatabase = common.find((item) => item.Id === id);
+		else if (type === "gold") elemInDatabase = gold.find((item) => item.Id === id);
+
 		if (elemInDatabase.PinCode === pin.value) {
 			try {
 				let result;
@@ -548,8 +549,8 @@ class Bank extends CreateElement {
 				else if (flag === "get") result = elemInDatabase.getCash(parseInt(money.value));
 				money.value = "";
 				pin.value = "";
-				if (type === "common") this.eventShowCommonClients(this.commonClients);
-				else this.eventShowCommonClients(this.goldClients);
+				if (type === "common") this.eventShowCommonClients(this.commonClients, "common");
+				else this.eventShowCommonClients(this.goldClients, "gold");
 				alert(result);
 			} catch (error) {
 				if (error instanceof WrongClaimCash) pin.value = "";
@@ -760,7 +761,7 @@ class CheckRating extends CreateElement {
 				if (error instanceof MonthHolliday || error instanceof MonthNan || error instanceof MonthNumWrong)
 					this.inputMonth.value = "";
 				if (error instanceof ScopeNan || error instanceof ScopeNumWrong) this.inputScope.value = "";
-				this.result.innerText = `ERROR!!! ${error.message}` ;
+				this.result.innerText = `ERROR!!! ${error.message}`;
 				this.result.style.color = "red";
 			}
 		});
