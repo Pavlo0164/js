@@ -202,13 +202,15 @@ class Bank extends CreateElement {
 	//реєстрація простих користувачів
 	registerNewCommonClient(name, surname, pin) {
 		this.commonClients.push(new Client(name, surname, pin));
-		if (this.buttonCommon.classList.contains("active-btn-result")) this.eventShowCommonClients(this.commonClients);
+		if (this.buttonCommon.classList.contains("active-btn-result"))
+			this.eventShowCommonClients(this.commonClients, "common");
 		return true;
 	}
 	//реєстрація голд користувачів
 	registerNewGoldClient(name, surname, pin, limit = 1000, percent = 3) {
 		this.goldClients.push(new GoldenClient(name, surname, pin, limit, percent));
-		if (this.buttonGold.classList.contains("active-btn-result")) this.eventShowCommonClients(this.goldClients);
+		if (this.buttonGold.classList.contains("active-btn-result"))
+			this.eventShowCommonClients(this.goldClients, "gold");
 		return true;
 	}
 
