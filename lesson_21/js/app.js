@@ -200,66 +200,27 @@ class Bank extends CreateElement {
 		this.goldClients = [];
 		this.el = this.render();
 	}
+	
 	//реєстрація простих користувачів
 	registerNewCommonClient(name, surname, pin) {
 		this.commonClients.push(new Client(name, surname, pin));
+		if (this.buttonCommon.classList.contains("active-btn-result")) this.eventShowCommonClients(this.commonClients);
 		return true;
 	}
 	//реєстрація голд користувачів
 	registerNewGoldClient(name, surname, pin, limit = 1000, percent = 3) {
 		this.goldClients.push(new GoldenClient(name, surname, pin, limit, percent));
+		if (this.buttonGold.classList.contains("active-btn-result")) this.eventShowCommonClients(this.goldClients);
 		return true;
 	}
+
 	renderString(el, min, max = null) {
 		let res;
 		if (max) res = el.length < min || el.length > max;
 		else res = el.length < min;
 		return res;
 	}
-	inputValid(event) {
-		const classError = "error-input";
-		const classSuccess = "success-input";
-		if (event.target.classList.contains("bank__button-submit")) {
-			const wrapInputs = event.target.parentElement.querySelectorAll(".bank__wrap-input");
-			for (const wrapInput of wrapInputs) {
-				wrapInput.classList.remove(classError);
-				wrapInput.classList.remove(classSuccess);
-			}
-			const inputs = event.target.parentElement.querySelectorAll(".bank__input");
 
-			if (this.renderString(inputs[0].value, 2)) inputs[0].parentElement.classList.add(classError);
-			else inputs[0].parentElement.classList.add(classSuccess);
-
-			if (this.renderString(inputs[1].value, 2)) inputs[1].parentElement.classList.add(classError);
-			else inputs[1].parentElement.classList.add(classSuccess);
-
-			if (this.renderString(inputs[2].value, 4, 4)) {
-				inputs[2].parentElement.classList.add(classError);
-				inputs[2].parentElement.classList.add("pin-error");
-			} else inputs[2].parentElement.classList.add(classSuccess);
-
-			if (!inputs[3]) return;
-
-			if (this.renderString(inputs[3].value, 2)) inputs[3].parentElement.classList.add(classError);
-			else inputs[3].parentElement.classList.add(classSuccess);
-
-			if (this.renderString(inputs[4].value, 1, 5)) {
-				inputs[4].parentElement.classList.add(classError);
-				inputs[4].parentElement.classList.add("error-lim");
-			} else inputs[4].parentElement.classList.add(classSuccess);
-		}
-
-		// const valueInput = event.target.value;
-		// const wrapInput = event.target.closest(".bank__wrap-input");
-		// wrapInput.classList.remove(selector);
-		// wrapInput.classList.remove(selector2);
-		// let res;
-		// if (numMax) res = valueInput.length < numMin || valueInput.length > numMax;
-		// else res = valueInput.length < numMin;
-
-		// if (res) wrapInput.classList.add(selector);
-		// else wrapInput.classList.add(selector2);
-	}
 	//генерація форми для звичайних користувачів
 	createCommonForm() {
 		const commonForm = this.createElem("form", "bank__form");
@@ -274,7 +235,7 @@ class Bank extends CreateElement {
 			{ type: "text", id: "name", placeholder: "Enter name" },
 			wrapInput
 		);
-		//this.inputName.addEventListener("blur", (event) => this.inputValid(event, "error-input", "success-input", 2));
+
 		const labelSurname = this.createElem("label", "bank__label", "Client surname", { for: "surname" }, commonForm);
 		const wrapInput2 = this.createElem("div", "bank__wrap-input", null, null, labelSurname);
 		this.inputSurname = this.createElem(
@@ -284,7 +245,6 @@ class Bank extends CreateElement {
 			{ type: "text", id: "surname", placeholder: "Enter surname" },
 			wrapInput2
 		);
-		//this.inputSurname.addEventListener("blur", (event) => this.inputValid(event, "error-input", "success-input", 2));
 		const labelPin = this.createElem("label", "bank__label", "Client new pin", { for: "pin" }, commonForm);
 		const wrapInput3 = this.createElem("div", "bank__wrap-input", null, null, labelPin);
 		this.inputPin = this.createElem(
@@ -294,7 +254,7 @@ class Bank extends CreateElement {
 			{ type: "password", id: "pin", placeholder: "Enter pincode" },
 			wrapInput3
 		);
-		//this.inputPin.addEventListener("blur", (event) => this.inputValid(event, "error-input", "success-input", 4, 4));
+
 		return commonForm;
 	}
 	//генерація форми для золотих користувачів
@@ -330,7 +290,6 @@ class Bank extends CreateElement {
 	//кнопка реєстрації користувачів та функціонал реєстрації
 	addSubmitButton(form) {
 		this.button = this.createElem("input", "bank__button-submit", null, { type: "submit", value: "Register" }, form);
-
 		this.button.addEventListener("click", (event) => {
 			event.preventDefault();
 			const form = event.target.closest("form");
@@ -349,6 +308,7 @@ class Bank extends CreateElement {
 				if (result) {
 					setTimeout(() => {
 						for (const input of inputs) input.value = "";
+						this.resetClases(".bank__wrap-input", ["error-input", "success-input", "pin-error", "error-lim"]);
 					}, 2000);
 				}
 			} catch (error) {
@@ -365,18 +325,17 @@ class Bank extends CreateElement {
 	resetWrapForm(container) {
 		if (container.firstElementChild) container.firstElementChild.remove();
 	}
+	resetClases(searchParentSelector, arrClasses) {
+		const wrapInputs = document.querySelectorAll(searchParentSelector);
+		for (const wrapInput of wrapInputs) {
+			arrClasses.forEach((item) => wrapInput.classList.remove(item));
+		}
+	}
 	//зміна показу форми для реєстрації
 	eventAdd(form) {
 		this.resetWrapForm(this.formContainer);
 		this.formContainer.append(form);
-
-		const wrapInputs = document.querySelectorAll(".bank__wrap-input");
-		for (const wrapInput of wrapInputs) {
-			wrapInput.classList.remove("error-input");
-			wrapInput.classList.remove("success-input");
-			wrapInput.classList.remove("pin-error");
-			wrapInput.classList.remove("error-lim");
-		}
+		this.resetClases(".bank__wrap-input", ["error-input", "success-input", "pin-error", "error-lim"]);
 	}
 	//кнопка переходу до форми для реєстрації простих клієнтів
 	createButtonCommon() {
@@ -413,23 +372,165 @@ class Bank extends CreateElement {
 	}
 	//створення кнопки длі показу всіх звичайних клієнтів
 	createButtonShowCommonClient() {
-		const button = this.createElem(
+		this.buttonCommon = this.createElem(
 			"button",
 			["bank__button-show-common-clients", "active-btn-result", "button-nav-result"],
 			"show common clients"
 		);
-		button.addEventListener("click", () => this.eventShowCommonClients(this.commonClients));
-		return button;
+		this.buttonCommon.addEventListener("click", () => this.eventShowCommonClients(this.commonClients));
+		return this.buttonCommon;
 	}
 	//створення кнопки для показу всіх золотих клієнтів
 	createButtonShowGoldClient() {
-		const button = this.createElem(
+		this.buttonGold = this.createElem(
 			"button",
 			["bank__button-show-gold-clients", "button-nav-result"],
 			"show gold clients"
 		);
-		button.addEventListener("click", () => this.eventShowCommonClients(this.goldClients));
-		return button;
+		this.buttonGold.addEventListener("click", () => this.eventShowCommonClients(this.goldClients));
+		return this.buttonGold;
+	}
+
+	//рендер форми для операцій з готівкою
+	createMiniForm(classButton, type) {
+		const wrap = this.createElem("div", "bank__wrap-mini-form", null, { "data-type-btn": type });
+		const wrapButton = this.createElem("div", "bank__wrap-button-cancel", null, null, wrap);
+		this.createElem("button", "bank__button-cancel", null, null, wrapButton);
+		const label = this.createElem("label", "bank__label", "Enter amount money:", null, wrap);
+		const wrapInput = this.createElem("div", "bank__wrap-input", null, null, label);
+		this.createElem(
+			"input",
+			["bank__input", "bank__input-money-cash"],
+			null,
+			{ type: "number", placeholder: "Enter amount money" },
+			wrapInput
+		);
+		const labelPin = this.createElem("label", "bank__label", "Enter your pincode:", null, wrap);
+		const wrapInput2 = this.createElem("div", "bank__wrap-input", null, null, labelPin);
+		this.createElem(
+			"input",
+			["bank__input", "bank__input-pin-cash"],
+			null,
+			{ type: "number", placeholder: "Enter pincode" },
+			wrapInput2
+		);
+		this.createElem("button", classButton, "Send", null, wrap);
+		return wrap;
+	}
+
+	//відкриття форми для додавання готівки
+	funcAddCashShowForm(event) {
+		const buttonWrap = event.target.closest(".bank__wrap-button");
+		buttonWrap.firstElementChild.replaceWith(this.miniAddForm.cloneNode(true));
+	}
+	//відкриття форми для зняття готівки
+	funcGetCashShowForm(event) {
+		const buttonWrap = event.target.closest(".bank__wrap-button");
+		buttonWrap.firstElementChild.replaceWith(this.miniGetForm.cloneNode(true));
+	}
+	//рендер картки для кожного клієнта
+	createClientShow(name, surname, id, cash, limit = null, percent = null) {
+		const wrap = this.createElem("div", "bank__show-client", null, { "data-id": id, "data-type": "common" });
+		this.createElem("h4", "bank__name-client", `Name client: ${name} ${surname}`, null, wrap);
+		this.createElem("p", "bank__id-client", `Id client: ${id}`, null, wrap);
+		this.createElem("p", "bank__cash-client", `Amount money client: ${cash}$`, null, wrap);
+		let lim = null;
+		let perc = null;
+		if (limit)
+			lim = this.createElem("p", "bank__limit", `Credit limit client: ${limit}$`, { "data-type": "gold" }, wrap);
+		if (percent) perc = this.createElem("p", "bank__percent", `Credit percent client: ${percent}%`, null, wrap);
+
+		const wrapButtonAdd = this.createElem("div", "bank__wrap-button", null, null, wrap);
+		const wrapButtonGet = this.createElem("div", "bank__wrap-button", null, null, wrap);
+
+		this.buttonAddCash = this.createElem("button", "bank__add-cash-client", "add cash", null, wrapButtonAdd);
+
+		this.buttonGetCash = this.createElem("button", "bank__get-cash-client", "get cash", null, wrapButtonGet);
+
+		return wrap;
+	}
+	resetClasesMiniForm(inputs, arrClass) {
+		for (const input of inputs) {
+			arrClass.forEach((item) => input.parentElement.classList.remove(item));
+		}
+	}
+	eventChangeMiniForm(event) {
+		const el = event.target;
+		if (el.classList.contains("bank__button-cancel")) {
+			const miniForm = el.closest(".bank__wrap-mini-form");
+			const attr = miniForm.getAttribute("data-type-btn");
+			const buttonWrap = event.target.closest(".bank__wrap-button");
+			if (attr == "add") buttonWrap.firstElementChild.replaceWith(this.buttonAddCash.cloneNode(true));
+			else if (attr == "get") buttonWrap.firstElementChild.replaceWith(this.buttonGetCash.cloneNode(true));
+		}
+		let buttonWrap;
+		if (el.classList.contains("bank__add-cash-client")) {
+			buttonWrap = event.target.closest(".bank__wrap-button");
+			buttonWrap.firstElementChild.replaceWith(this.miniAddForm.cloneNode(true));
+		}
+		if (el.classList.contains("bank__get-cash-client")) {
+			buttonWrap = event.target.closest(".bank__wrap-button");
+			buttonWrap.firstElementChild.replaceWith(this.miniGetForm.cloneNode(true));
+		}
+
+		if (el.classList.contains("bank__button-add-cash") || el.classList.contains("bank__button-get-cash")) {
+			console.log("444");
+			const classError = "error-input";
+			const classSuccess = "success-input";
+			const classPinError = "pin-error";
+			const inputs = event.target.parentElement.querySelectorAll(".bank__input");
+			this.resetClasesMiniForm(inputs, [classError, classSuccess, classPinError]);
+
+			let flag = 0;
+			if (this.renderString(inputs[0].value, 2)) inputs[0].parentElement.classList.add(classError);
+			else {
+				inputs[0].parentElement.classList.add(classSuccess);
+				flag++;
+			}
+			if (this.renderString(inputs[1].value, 4, 4)) {
+				inputs[1].parentElement.classList.add(classError);
+				inputs[1].parentElement.classList.add(classPinError);
+			} else {
+				inputs[1].parentElement.classList.add(classSuccess);
+				flag++;
+			}
+			if (flag !== 2) return;
+			if (el.classList.contains("bank__button-add-cash"))
+				this.funcChangeCash(event, this.commonClients, this.goldClients, "add");
+
+			if (el.classList.contains("bank__button-get-cash"))
+				this.funcChangeCash(event, this.commonClients, this.goldClients, "get");
+
+			this.resetClasesMiniForm(inputs, [classError, classSuccess, classPinError]);
+		}
+	}
+	//валідація форм реєстрації
+	inputValid(event) {
+		const classError = "error-input";
+		const classSuccess = "success-input";
+		if (event.target.classList.contains("bank__button-submit")) {
+			this.resetClases(".bank__wrap-input", ["error-input", "success-input"]);
+			const inputs = event.target.parentElement.querySelectorAll(".bank__input");
+			if (this.renderString(inputs[0].value, 2)) inputs[0].parentElement.classList.add(classError);
+			else inputs[0].parentElement.classList.add(classSuccess);
+			if (this.renderString(inputs[1].value, 2)) inputs[1].parentElement.classList.add(classError);
+			else inputs[1].parentElement.classList.add(classSuccess);
+
+			if (this.renderString(inputs[2].value, 4, 4)) {
+				inputs[2].parentElement.classList.add(classError);
+				inputs[2].parentElement.classList.add("pin-error");
+			} else inputs[2].parentElement.classList.add(classSuccess);
+
+			if (!inputs[3]) return;
+
+			if (this.renderString(inputs[3].value, 2)) inputs[3].parentElement.classList.add(classError);
+			else inputs[3].parentElement.classList.add(classSuccess);
+
+			if (this.renderString(inputs[4].value, 1, 5)) {
+				inputs[4].parentElement.classList.add(classError);
+				inputs[4].parentElement.classList.add("error-lim");
+			} else inputs[4].parentElement.classList.add(classSuccess);
+		}
 	}
 	//функціонал операцій з готівкою
 	funcChangeCash(event, common, gold, flag) {
@@ -448,6 +549,8 @@ class Bank extends CreateElement {
 				else if (flag === "get") result = elemInDatabase.getCash(parseInt(money.value));
 				money.value = "";
 				pin.value = "";
+				if (type === "common") this.eventShowCommonClients(this.commonClients);
+				else this.eventShowCommonClients(this.goldClients);
 				alert(result);
 			} catch (error) {
 				if (error instanceof WrongClaimCash) pin.value = "";
@@ -455,71 +558,6 @@ class Bank extends CreateElement {
 				alert(error.message);
 			}
 		}
-	}
-	//закриття форми для операцій з готівкою
-	buttonEventCancel(event) {
-		const miniForm = event.target.closest(".bank__wrap-mini-form");
-		const attr = miniForm.getAttribute("data-type-btn");
-		if (attr == "add") this.wrapButtonAdd.firstElementChild.replaceWith(this.buttonAddCash);
-		else if (attr == "get") this.wrapButtonGet.firstElementChild.replaceWith(this.buttonGetCash);
-	}
-	//рендер форми для операцій з готівкою
-	createMiniForm(classButton, funcEvent, type) {
-		const wrap = this.createElem("div", "bank__wrap-mini-form", null, { "data-type-btn": type });
-		const wrapButton = this.createElem("div", "bank__wrap-button-cancel", null, null, wrap);
-		const buttonCancel = this.createElem("button", null, null, null, wrapButton);
-		buttonCancel.addEventListener("click", (event) => this.buttonEventCancel(event));
-		const label = this.createElem("label", "bank__label", "Enter amount money:", null, wrap);
-		const input = this.createElem(
-			"input",
-			["bank__input", "bank__input-money-cash"],
-			null,
-			{ type: "number" },
-			label
-		);
-		const labelPin = this.createElem("label", "bank__label", "Enter your pincode:", null, wrap);
-		const inputPin = this.createElem(
-			"input",
-			["bank__input", "bank__input-pin-cash"],
-			null,
-			{ type: "number" },
-			labelPin
-		);
-		const button = this.createElem("button", classButton, "Send", null, wrap);
-		button.addEventListener("click", (event) => funcEvent(event));
-		return wrap;
-	}
-	//відкриття форми для додавання готівки
-	funcAddCashShowForm() {
-		this.wrapButtonGet.firstElementChild.replaceWith(this.buttonGetCash);
-		this.wrapButtonAdd.firstElementChild.replaceWith(this.miniAddForm);
-	}
-	//відкриття форми для зняття готівки
-	funcGetCashShowForm() {
-		this.wrapButtonAdd.firstElementChild.replaceWith(this.buttonAddCash);
-		this.wrapButtonGet.firstElementChild.replaceWith(this.miniGetForm);
-	}
-	//рендер картки для кожного клієнта
-	createClientShow(name, surname, id, cash, limit = null, percent = null) {
-		const wrap = this.createElem("div", "bank__show-client", null, { "data-id": id, "data-type": "common" });
-		const names = this.createElem("h4", "bank__name-client", `Name client: ${name} ${surname}`, null, wrap);
-		const idClient = this.createElem("p", "bank__id-client", `Id client: ${id}`, null, wrap);
-		const cashClient = this.createElem("p", "bank__cash-client", `Amount money client: ${cash}$`, null, wrap);
-		let lim = null;
-		let perc = null;
-		if (limit)
-			lim = this.createElem("p", "bank__limit", `Credit limit client: ${limit}$`, { "data-type": "gold" }, wrap);
-		if (percent) perc = this.createElem("p", "bank__percent", `Credit percent client: ${percent}%`, null, wrap);
-
-		this.wrapButtonAdd = this.createElem("div", null, null, null, wrap);
-		this.wrapButtonGet = this.createElem("div", null, null, null, wrap);
-
-		this.buttonAddCash = this.createElem("button", "bank__add-cash-client", "add cash", null, this.wrapButtonAdd);
-		this.buttonAddCash.addEventListener("click", () => this.funcAddCashShowForm());
-
-		this.buttonGetCash = this.createElem("button", "bank__get-cash-client", "get cash", null, this.wrapButtonGet);
-		this.buttonGetCash.addEventListener("click", () => this.funcGetCashShowForm());
-		return wrap;
 	}
 	//івент по головним кнопкам(автивна кнопка)
 	bankEvent(event, bank, classContains, activeClass) {
@@ -531,22 +569,15 @@ class Bank extends CreateElement {
 	}
 	//рендер форм операцій з готівкою
 	generateMiniForms() {
-		this.miniAddForm = this.createMiniForm(
-			"bank__button-add-cash",
-			(event) => this.funcChangeCash(event, this.commonClients, this.goldClients, "add"),
-			"add"
-		);
-		this.miniGetForm = this.createMiniForm(
-			"bank__button-get-cash",
-			(event) => this.funcChangeCash(event, this.commonClients, this.goldClients, "get"),
-			"get"
-		);
+		this.miniAddForm = this.createMiniForm("bank__button-add-cash", "add");
+		this.miniGetForm = this.createMiniForm("bank__button-get-cash", "get");
 	}
 	//рендер обох форм реєстрації
 	createForm() {
 		this.commonForm = this.addSubmitButton(this.createCommonForm());
 		this.goldForm = this.addSubmitButton(this.createGoldForm());
 	}
+
 	render() {
 		//банк
 		const bank = this.createElem("div", "bank");
@@ -572,6 +603,8 @@ class Bank extends CreateElement {
 		//контейнери для форм та показу клієнтів
 		this.formContainer = this.createElem("div", "bank__form-container", null, null, wrapForm);
 		this.resultContainer = this.createElem("div", "bank__result-container", null, null, wrapForm);
+		this.resultContainer.addEventListener("click", (event) => this.eventChangeMiniForm(event));
+
 		//вставка форми за замовч
 		this.formContainer.append(this.commonForm);
 		//вставка показу клієнтів за замовч
@@ -586,3 +619,5 @@ try {
 	console.log(error.message);
 	console.log(error.stack);
 }
+
+//-----------------------------------------

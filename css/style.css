@@ -711,8 +711,12 @@ li {
   gap: 5px;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 .bank {
-  padding: 50px;
+  padding: 20px;
 }
 .bank input::-webkit-input-placeholder {
   font-size: 16px;
@@ -736,6 +740,7 @@ li {
 }
 .bank > button {
   margin-right: 50px;
+  margin-bottom: 20px;
   padding: 10px 30px;
   border-radius: 10px;
   border: 2px solid black;
@@ -773,6 +778,11 @@ li {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 30px;
+}
+@media (max-width: 600px) {
+  .bank__form {
+    padding: 10px;
+  }
 }
 .bank__result-container > div {
   font-size: 25px;
@@ -820,6 +830,14 @@ li {
   gap: 20px;
   font-size: 20px;
 }
+@media (max-width: 550px) {
+  .bank__label {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
 .bank__wrap-input {
   position: relative;
 }
@@ -827,13 +845,15 @@ li {
   border: 1px solid #59e73c;
   outline: 1px solid #59e73c;
 }
-.bank__wrap-input.error-input::after {
-  content: "The field must have at least two characters";
+.bank__wrap-input.error-input::after, .bank__wrap-input.pin-error::after, .bank__wrap-input.error-lim::after {
   position: absolute;
   font-size: 12px;
   left: 0;
   bottom: -40%;
   color: #e74c3c;
+}
+.bank__wrap-input.error-input::after {
+  content: "The field must have at least two characters";
 }
 .bank__wrap-input.pin-error::after {
   content: "The field must have  four characters";
@@ -874,7 +894,7 @@ li {
   outline: 1px solid #e74c3c;
 }
 .bank__input {
-  width: 300px;
+  max-width: 300px;
   border: 1px solid gray;
   padding: 5px 10px;
 }
@@ -919,7 +939,25 @@ li {
 .bank__wrap-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 20px;
+}
+@media (max-width: 1115px) {
+  .bank__wrap-form {
+    grid-template-columns: 0.6fr;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+@media (max-width: 860px) {
+  .bank__wrap-form {
+    grid-template-columns: 0.9fr;
+  }
+}
+@media (max-width: 660px) {
+  .bank__wrap-form {
+    grid-template-columns: 1fr;
+  }
 }
 .bank__button-add-cash, .bank__button-get-cash {
   -ms-flex-item-align: end;
@@ -952,7 +990,7 @@ li {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 10px;
+  gap: 30px;
 }
 .active-btn,
 .active-btn-result {

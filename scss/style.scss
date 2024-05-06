@@ -361,11 +361,15 @@ li {
 }
 
 ///-------------------------------------------+-------------------
+
+body {
+	overflow-y: scroll;
+}
 .bank {
 	& input::placeholder {
 		font-size: 16px;
 	}
-	padding: 50px;
+	padding: 20px;
 	&__title {
 		font-size: 35px;
 		text-align: center;
@@ -373,6 +377,7 @@ li {
 	}
 	& > button {
 		margin-right: 50px;
+		margin-bottom: 20px;
 		padding: 10px 30px;
 		border-radius: 10px;
 		border: 2px solid black;
@@ -405,6 +410,9 @@ li {
 		display: flex;
 		flex-direction: column;
 		gap: 30px;
+		@media (max-width: 600px){
+			  padding: 10px;
+		}
 	}
 
 	&__result-container {
@@ -439,6 +447,9 @@ li {
 		justify-content: space-between;
 		gap: 20px;
 		font-size: 20px;
+		@media (max-width: 550px){
+			  flex-direction: column;
+		}
 	}
 	&__wrap-input {
 		position: relative;
@@ -446,14 +457,17 @@ li {
 			border: 1px solid #59e73c;
 			outline: 1px solid #59e73c;
 		}
-
-		&.error-input::after {
-			content: "The field must have at least two characters";
+		&.error-input::after,
+		&.pin-error::after,
+		&.error-lim::after {
 			position: absolute;
 			font-size: 12px;
 			left: 0;
 			bottom: -40%;
 			color: #e74c3c;
+		}
+		&.error-input::after {
+			content: "The field must have at least two characters";
 		}
 		&.pin-error::after {
 			content: "The field must have  four characters";
@@ -491,7 +505,7 @@ li {
 		}
 	}
 	&__input {
-		width: 300px;
+		max-width: 300px;
 		border: 1px solid gray;
 		// border-radius: 10px;
 		padding: 5px 10px;
@@ -534,7 +548,18 @@ li {
 	&__wrap-form {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 30px;
+
+		gap: 20px;
+		@media (max-width: 1115px) {
+			grid-template-columns: 0.6fr;
+			justify-content: center;
+		}
+		@media (max-width: 860px){
+			  grid-template-columns: 0.9fr;
+		}
+		@media (max-width: 660px){
+			  grid-template-columns: 1fr;
+		}
 	}
 	&__button-show-common-clients {
 	}
@@ -563,7 +588,7 @@ li {
 	&__wrap-mini-form {
 		display: flex;
 		flex-direction: column;
-		gap: 10px;
+		gap: 30px;
 	}
 	&__button-add-common {
 	}
