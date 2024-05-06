@@ -665,7 +665,6 @@ class Bird extends ShowSubject {
 	}
 	workMoveRandom() {
 		const position = ["top", "left"];
-
 		setInterval(() => {
 			const randomPosition = Math.floor(Math.random() * 2);
 			const randomPercent = Math.floor(Math.random() * 90);
@@ -773,19 +772,24 @@ class CheckRating extends CreateElement {
 }
 //------------------------------------------------
 try {
+	//task2
 	const body = document.body;
+	const bank = new Bank();
+	body.prepend(bank.el);
+
+	//task3
 	const wrapHouse = document.querySelector(".wrap__house");
 	const wrapHouseTwo = document.querySelector(".wrap__house--two");
 	const wrapHouseThree = document.querySelector(".wrap__house--three");
-	const bank = new Bank();
+
 	const house = new House(20, 30, "../img/house.jpg", 500);
 	const dog = new Dog(10, 20, "../img/dog.jpg", 500);
 	const bird = new Bird(30, 30, "../img/bird.jpg", 1000);
 	wrapHouse.append(house.el);
 	wrapHouseTwo.append(dog.el);
 	wrapHouseThree.append(bird.el);
-	body.prepend(bank.el);
 
+	//task 4
 	const checkRating = new CheckRating();
 	const wrapScope = document.querySelector(".wrap__scope");
 	wrapScope.append(checkRating.el);
