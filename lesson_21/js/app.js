@@ -1,4 +1,3 @@
-const body = document.body;
 class CreateElement {
 	createElem(tag, clas = null, inner = null, attr = null, elemAppend = null) {
 		const el = document.createElement(tag);
@@ -200,7 +199,7 @@ class Bank extends CreateElement {
 		this.goldClients = [];
 		this.el = this.render();
 	}
-	
+
 	//реєстрація простих користувачів
 	registerNewCommonClient(name, surname, pin) {
 		this.commonClients.push(new Client(name, surname, pin));
@@ -612,12 +611,182 @@ class Bank extends CreateElement {
 		return bank;
 	}
 }
+
+//-----------------------------------------
+//task3
+class ShowSubject extends CreateElement {
+	constructor(x, y, urlImage, interval) {
+		super();
+		this.x = x;
+		this.y = y;
+		this.urlImage = urlImage;
+		this.interval = interval;
+		this.el = this.render();
+	}
+	render() {
+		const wrap = this.createElem("div", "wrap");
+		this.createElem("img", "wrap__image", null, { src: this.urlImage }, wrap);
+		wrap.style.left = `${this.x}%`;
+		wrap.style.top = `${this.y}%`;
+		return wrap;
+	}
+}
+class House extends ShowSubject {
+	constructor(x, y, urlImage, interval) {
+		super(x, y, urlImage, interval);
+		this.workScale();
+	}
+	workScale() {
+		setInterval(() => {
+			const randomScale = 0.3 + Math.random() * (2 - 0.3 + 1);
+			this.el.style.transform = `scale(${randomScale})`;
+		}, this.interval);
+	}
+}
+class Dog extends ShowSubject {
+	constructor(x, y, urlImage, interval) {
+		super(x, y, urlImage, interval);
+		this.workMoveX();
+	}
+	workMoveX() {
+		setInterval(() => {
+			const randomX = Math.floor(Math.random() * 90);
+			this.el.style.left = `${randomX}%`;
+		}, this.interval);
+	}
+}
+class Bird extends ShowSubject {
+	constructor(x, y, urlImage, interval) {
+		super(x, y, urlImage, interval);
+		this.workMoveRandom();
+	}
+	workMoveRandom() {
+		const position = ["top", "left"];
+
+		setInterval(() => {
+			const randomPosition = Math.floor(Math.random() * 2);
+			const randomPercent = Math.floor(Math.random() * 90);
+			this.el.style[position[randomPosition]] = `${randomPercent}%`;
+		}, this.interval);
+	}
+}
+//--------------------------------------------
+//task4
+
+class MonthNan extends Error {
+	constructor() {
+		super();
+
+		this.message = "Номер місяця повинен бути числом";
+	}
+}
+class MonthNumWrong extends Error {
+	constructor() {
+		super();
+
+		this.message = "Номер місяця повинен бути від 1 до 12";
+	}
+}
+class MonthHolliday extends Error {
+	constructor() {
+		super();
+
+		this.message = "Нажаль вже канікули";
+	}
+}
+class ScopeNan extends Error {
+	constructor() {
+		super();
+
+		this.message = "Оцінка повинна бути числом";
+	}
+}
+class ScopeNumWrong extends Error {
+	constructor() {
+		super();
+
+		this.message = "Оцінка повинна бути від 1 до 100";
+	}
+}
+class CheckRating extends CreateElement {
+	constructor() {
+		super();
+
+		this.el = this.render();
+	}
+	eventButton() {
+		const monthValue = parseInt(this.inputMonth.value);
+		const scopeValue = parseInt(this.inputScope.value);
+
+		if (isNaN(monthValue)) throw new MonthNan(this.result);
+		if (monthValue < 1 || monthValue > 12) throw new MonthNumWrong(this.result);
+		if (monthValue > 9) throw new MonthHolliday(this.result);
+		if (isNaN(scopeValue)) throw new ScopeNan(this.result);
+		if (scopeValue < 1 || scopeValue > 100) throw new ScopeNumWrong(this.result);
+		if (scopeValue > 50) {
+			this.result.innerText = "У вас не погана оцінка";
+			this.result.style.color = "green";
+			return;
+		}
+		if (monthValue === 4 || monthValue === 9) {
+			this.result.innerText = "Нажаль ви не встигнете виправити оцінку";
+			this.result.style.color = "red";
+			return;
+		}
+		this.result.innerText = "Ви встигнете виправити оцінку";
+		this.result.style.color = "green";
+	}
+	render() {
+		const wrap = this.createElem("div", "check-rating");
+		const wrapMonth = this.createElem("div", "check-rating__wrap-month", null, null, wrap);
+		const labelMonth = this.createElem(
+			"label",
+			"check-rating__label",
+			"Enter month study",
+			{ for: "month" },
+			wrapMonth
+		);
+		this.inputMonth = this.createElem("input", "check-rating__input", null, { id: "month" }, wrapMonth);
+
+		const wrapScope = this.createElem("div", "check-rating__wrap-scope", null, null, wrap);
+		const labelScope = this.createElem("label", "check-rating__label", "Enter rating", { for: "scope" }, wrapScope);
+		this.inputScope = this.createElem("input", "check-rating__input", null, { id: "scope" }, wrapScope);
+
+		const buttonCheck = this.createElem("button", "check-rating__button-check", "Check", null, wrap);
+		buttonCheck.addEventListener("click", () => {
+			try {
+				this.eventButton();
+			} catch (error) {
+				if (error instanceof MonthHolliday || error instanceof MonthNan || error instanceof MonthNumWrong)
+					this.inputMonth.value = "";
+				if (error instanceof ScopeNan || error instanceof ScopeNumWrong) this.inputScope.value = "";
+				this.result.innerText = `ERROR!!! ${error.message}` ;
+				this.result.style.color = "red";
+			}
+		});
+		this.result = this.createElem("div", "check-rating__result", null, null, wrap);
+		return wrap;
+	}
+}
+//------------------------------------------------
 try {
+	const body = document.body;
+	const wrapHouse = document.querySelector(".wrap__house");
+	const wrapHouseTwo = document.querySelector(".wrap__house--two");
+	const wrapHouseThree = document.querySelector(".wrap__house--three");
 	const bank = new Bank();
+	const house = new House(20, 30, "../img/house.jpg", 500);
+	const dog = new Dog(10, 20, "../img/dog.jpg", 500);
+	const bird = new Bird(30, 30, "../img/bird.jpg", 1000);
+	wrapHouse.append(house.el);
+	wrapHouseTwo.append(dog.el);
+	wrapHouseThree.append(bird.el);
 	body.prepend(bank.el);
+
+	const checkRating = new CheckRating();
+	const wrapScope = document.querySelector(".wrap__scope");
+	wrapScope.append(checkRating.el);
 } catch (error) {
 	console.log(error.message);
 	console.log(error.stack);
 }
-
-//-----------------------------------------
