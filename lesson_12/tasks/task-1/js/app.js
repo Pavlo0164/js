@@ -105,21 +105,16 @@ function arraySortedExclusion(arrayWillSort) {
 //Задача 3. Дано масив 30 випадкових цілих чисел. Підрахувати скільки було обмінів та порівнянь чисел під час сортування включеннями.
 function sortedArrayTurnOn(array) {
 	let arrWithChanges = [];
-	let countCompare = 0;
-	let countChange = 0;
 	for (let i = 1; i < array.length; i++) {
 		let currentElement = array[i];
 		let prevElement = i - 1;
 		while (prevElement >= 0 && array[prevElement] > currentElement) {
-			countCompare++;
 			array[prevElement + 1] = array[prevElement];
 			prevElement--;
 		}
-		countChange++;
-		arrWithChanges.push([...array]);
 		array[prevElement + 1] = currentElement;
 	}
-	return [array, countChange, countCompare, arrWithChanges];
+	return [array, arrWithChanges];
 }
 
 

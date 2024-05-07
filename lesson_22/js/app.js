@@ -395,21 +395,67 @@ class CheckSort {
 	constructor(countNumbers = 100, maxValueOfNumber = 100) {
 		this.count = countNumbers;
 		this.max = maxValueOfNumber;
-		this.arrNumbers = this.generateArr();
+		this.el = this.render();
 	}
 	generateArr() {
 		let arrNumbers = [];
 		for (let i = 0; i < this.count; i++) {
 			const randomNum = 1 + Math.floor(Math.random() * this.max);
-			this.arrNumbers.push(randomNum);
+			arrNumbers.push(randomNum);
 		}
 		return arrNumbers;
 	}
-	sortBubbles() {
+	sortBubbles(arr) {
 		const dateStart = new Date();
+		const end = arr.length - 1;
+		for (let i = 0; i < end; i++)
+			for (let p = 0; p < end; p++)
+				if (arr[p] > arr[p + 1]) {
+					let testEl = arr[p];
+					arr[p] = arr[p + 1];
+					arr[p + 1] = testEl;
+				}
+		const dateEnd = new Date();
+		return dateEnd - dateStart;
 	}
-	sortEnter() {
+	sortEnter(arr) {
 		const dateStart = new Date();
+		for (let i = 0; i < arr.length; i++) {
+			let currentEl = arr[i];
+			let k = i - 1;
+			while (k >= 0 && currentEl < arr[k]) {
+				arr[k + 1] = arr[k];
+				k--;
+			}
+			arr[k + 1] = currentEl;
+		}
+		const dateEnd = new Date();
+		return dateEnd - dateStart;
+	}
+	eventSorted() {
+		const arrOne = this.generateArr();
+		const arrTwo = [...arrOne];
+		console.log(arrOne);
+		console.log(arrTwo);
+		this.resultBubbles.innerText = `Час сортування бульбашкою ${this.sortBubbles(arrOne)} мс.`;
+		this.resultEnter.innerText = `Час сортування вставками ${this.sortEnter(arrTwo)}мс.`;
+		console.log(arrOne);
+		console.log(arrTwo);
+	}
+	render() {
+		const wrap = document.createElement("div");
+		wrap.classList.add("start-day");
+		const title = document.createElement("p");
+		title.style.fontSize = "14px";
+		title.innerText =
+			"Сформувати масив з 1000 елементів від 1 до 800. Порівняти час сортування бульбашкою і  вставкою.";
+		this.resultBubbles = document.createElement("p");
+		this.resultEnter = document.createElement("p");
+		const button = document.createElement("button");
+		button.innerText = "Check";
+		button.addEventListener("click", () => this.eventSorted());
+		wrap.append(title, this.resultBubbles, this.resultEnter, button);
+		return wrap;
 	}
 }
 try {
@@ -425,6 +471,7 @@ try {
 	const moveMouse = new FirstMoveMouse();
 	const holliday = new Holliday();
 	const termin = new CheckTermin();
+	const task12 = new CheckSort(1000,800);
 	body.append(
 		moveMouse.el,
 		startDay.el,
@@ -434,7 +481,8 @@ try {
 		termin.el,
 		checker.el,
 		checkEndWorkDay.el,
-		curentTime.el
+		curentTime.el,
+		task12.el
 	);
 } catch (error) {
 	alert(error.message);
