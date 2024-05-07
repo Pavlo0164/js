@@ -407,18 +407,16 @@ class CheckSort {
 	}
 	sortBubbles() {
 		const dateStart = new Date();
-
 	}
 	sortEnter() {
 		const dateStart = new Date();
-		
 	}
 }
 try {
 	const searchStudents = new SearchOlderStudent(studentsList);
 	console.log(searchStudents.studentsList);
 	console.log(searchStudents.result);
-	//const curentTime = new ShowTime();
+	const curentTime = new ShowTime();
 	const checker = new CheckProcedur();
 	const checkEndWorkDay = new CheckEndWorkDay();
 	const checkDate = new CheckDataInRate();
@@ -435,7 +433,8 @@ try {
 		holliday.el,
 		termin.el,
 		checker.el,
-		checkEndWorkDay.el
+		checkEndWorkDay.el,
+		curentTime.el
 	);
 } catch (error) {
 	alert(error.message);
