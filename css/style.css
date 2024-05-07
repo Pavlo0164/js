@@ -1072,3 +1072,53 @@ h3 {
   padding: 5px 10px;
   width: 200px;
 }
+
+.body-date {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.date-show__wrapper {
+  margin: 20px;
+  padding: 20px;
+  border: 2px solid gray;
+  border-radius: 10px;
+  font-size: 30px;
+  display: inline-block;
+}
+
+.start-day,
+.check-rate,
+.check-proc,
+.checker {
+  margin: 20px;
+  padding: 20px;
+  border: 2px solid gray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+  font-size: 25px;
+}
+.start-day input,
+.check-rate input,
+.check-proc input,
+.checker input {
+  border: 1px solid gray;
+  padding: 5px 10px;
+}
+.start-day button,
+.check-rate button,
+.check-proc button,
+.checker button {
+  border: 2px solid gray;
+  padding: 5px 10px;
+}

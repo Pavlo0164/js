@@ -14,6 +14,7 @@ class CreateElement {
 		return el;
 	}
 }
+//task 2
 class WrongName extends Error {
 	constructor() {
 		super();
@@ -62,6 +63,7 @@ class WrongPin extends Error {
 		this.message = "Pin code must have four symbol";
 	}
 }
+
 class Name {
 	#name;
 	#surname;
@@ -90,6 +92,7 @@ class Name {
 		return this.#surname;
 	}
 }
+
 class Client {
 	#cash;
 	#id;
