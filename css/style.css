@@ -1081,6 +1081,16 @@ h3 {
       -ms-flex-align: start;
           align-items: flex-start;
 }
+@media (max-width: 1200px) {
+  .body-date {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 992px) {
+  .body-date {
+    grid-template-columns: 1fr;
+  }
+}
 
 .date-show__wrapper {
   margin: 20px;
