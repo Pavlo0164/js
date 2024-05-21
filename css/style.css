@@ -1141,3 +1141,36 @@ body.lesson23 h3 {
   font-size: 20px;
   margin-top: 50px;
 }
+
+.wrap-task {
+  padding: 20px;
+  border: 2px solid gray;
+  margin: 50px;
+}
+.wrap-task h1 {
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+.wrap-task > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.wrap-task button {
+  width: 200px;
+  border: 2px solid black;
+  padding: 5px;
+}
+.wrap-task button:not(:last-child) {
+  margin-bottom: 10px;
+}
+.wrap-task input {
+  width: 400px;
+  padding: 5px 10px;
+  border: 1px solid gray;
+  margin-bottom: 10px;
+}

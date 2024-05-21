@@ -714,3 +714,31 @@ body.lesson23 {
 		margin-top: 50px;
 	}
 }
+.wrap-task{
+	padding: 20px;
+	border: 2px solid gray;
+	margin: 50px;
+	& h1{
+		font-size: 25px;
+		margin-bottom: 15px;
+	}
+	&>div{
+		display: flex;
+		flex-direction: column;
+		
+	}
+	& button{
+		width: 200px;
+		border: 2px solid black;
+		padding: 5px ;
+		&:not(:last-child){
+			margin-bottom: 10px;
+		}
+	}
+	& input{
+		width: 400px;
+		padding: 5px 10px;
+		border: 1px solid gray;
+		margin-bottom: 10px;
+	}
+}
